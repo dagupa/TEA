@@ -23,6 +23,22 @@ const btnClear = document.getElementById('btn-clear');
 const toastEl = document.getElementById('toast');
 const voiceSelect = document.getElementById('voice-select');
 const editModeToggle = document.getElementById('edit-mode-toggle');
+
+// Settings & PIN Elements
+const btnSettings = document.getElementById('btn-settings');
+const settingsModal = document.getElementById('settings-modal');
+const btnCloseSettings = document.getElementById('btn-close-settings');
+const btnChangePin = document.getElementById('btn-change-pin');
+const themeToggle = document.getElementById('theme-toggle');
+
+const pinModal = document.getElementById('pin-modal');
+const pinTitle = document.getElementById('pin-title');
+const pinDesc = document.getElementById('pin-desc');
+const pinInput = document.getElementById('pin-input');
+const pinError = document.getElementById('pin-error');
+const btnSubmitPin = document.getElementById('btn-submit-pin');
+const btnCancelPin = document.getElementById('btn-cancel-pin');
+
 const boardContainer = document.querySelector('.board-container');
 
 // Modal Elements
@@ -111,6 +127,11 @@ function initDB() {
     });
 }
 
+function verifyPin(inputPin) {
+    const savedPin = localStorage.getItem('app_pin') || '1234';
+    return inputPin === savedPin;
+}
+
 function saveCustomVoice(id, audioBlob) {
     const transaction = db.transaction([storeName], 'readwrite');
     const store = transaction.objectStore(storeName);
@@ -148,12 +169,24 @@ function deleteCustomPicto(id) {
 // Initialize App
 async function init() {
     showToast("Cargando pictogramas...");
+    try {
+        await initDB();
+    } catch (e) {
+        console.error(e);
+    }
     populateVoiceList();
     if (speechSynthesis.onvoiceschanged !== undefined) {
         speechSynthesis.onvoiceschanged = populateVoiceList;
     }
     await loadPictograms();
     renderBoard();
+    
+    // Load theme
+    const currentTheme = localStorage.getItem('theme') || 'light';
+    if (currentTheme === 'dark') {
+        document.documentElement.setAttribute('data-theme', 'dark');
+        themeToggle.checked = true;
+    }
     showToast("¡Listo para usar!", 2000);
 }
 
@@ -381,11 +414,93 @@ async function speakFullPhrase() {
 
 // --- Recorder Modal Logic ---
 
+// --- Settings & PIN Logic ---
+
+themeToggle.addEventListener('change', (e) => {
+    if (e.target.checked) {
+        document.documentElement.setAttribute('data-theme', 'dark');
+        localStorage.setItem('theme', 'dark');
+    } else {
+        document.documentElement.setAttribute('data-theme', 'light');
+        localStorage.setItem('theme', 'light');
+    }
+});
+
+let savedPin = localStorage.getItem('appPin');
+let isCreatingPin = !savedPin;
+
+btnSettings.addEventListener('click', () => {
+    savedPin = localStorage.getItem('appPin');
+    isCreatingPin = !savedPin;
+    
+    pinInput.value = '';
+    pinError.style.display = 'none';
+    
+    if (isCreatingPin) {
+        pinTitle.textContent = "Crear PIN";
+        pinDesc.textContent = "Crea un PIN de 4 dígitos para proteger la configuración.";
+    } else {
+        pinTitle.textContent = "Control Parental";
+        pinDesc.textContent = "Introduce tu PIN para acceder.";
+    }
+    
+    pinModal.classList.add('active');
+    setTimeout(() => pinInput.focus(), 100);
+});
+
+btnCancelPin.addEventListener('click', () => {
+    pinModal.classList.remove('active');
+});
+
+function verifyPin() {
+    const val = pinInput.value;
+    if (val.length < 4) {
+        pinError.textContent = "El PIN debe tener al menos 4 caracteres.";
+        pinError.style.display = 'block';
+        return;
+    }
+    
+    if (isCreatingPin) {
+        localStorage.setItem('appPin', val);
+        savedPin = val;
+        pinModal.classList.remove('active');
+        settingsModal.classList.add('active');
+    } else {
+        if (val === savedPin) {
+            pinModal.classList.remove('active');
+            settingsModal.classList.add('active');
+        } else {
+            pinError.textContent = "PIN incorrecto.";
+            pinError.style.display = 'block';
+        }
+    }
+}
+
+btnSubmitPin.addEventListener('click', verifyPin);
+pinInput.addEventListener('keypress', (e) => {
+    if (e.key === 'Enter') verifyPin();
+});
+
+btnCloseSettings.addEventListener('click', () => {
+    settingsModal.classList.remove('active');
+});
+
+btnChangePin.addEventListener('click', () => {
+    const confirmChange = confirm("¿Quieres cambiar tu PIN actual?");
+    if (confirmChange) {
+        localStorage.removeItem('appPin');
+        settingsModal.classList.remove('active');
+        btnSettings.click(); // Re-open pin modal in create mode
+    }
+});
+
+// --- Edit Mode Logic ---
+
 editModeToggle.addEventListener('change', (e) => {
     isEditMode = e.target.checked;
     if (isEditMode) {
         boardContainer.classList.add('edit-mode');
-        showToast("Modo Configuración. Toca una imagen para grabarle voz o añade nuevas fotos.", 4000);
+        showToast("Modo Configuración. Toca una imagen del tablero para modificarla.", 4000);
     } else {
         boardContainer.classList.remove('edit-mode');
     }
