@@ -23,9 +23,6 @@ const btnClear = document.getElementById('btn-clear');
 const toastEl = document.getElementById('toast');
 const voiceSelect = document.getElementById('voice-select');
 const editModeToggle = document.getElementById('edit-mode-toggle');
-const dragModeToggle = document.getElementById('drag-mode-toggle');
-const iconSizeSlider = document.getElementById('icon-size-slider');
-const sizeDisplay = document.getElementById('size-display');
 
 // Settings & PIN Elements
 const btnSettings = document.getElementById('btn-settings');
@@ -76,14 +73,7 @@ let currentPhrase = [];
 let pictoCache = {}; // Cache to store fetched ARASAAC image URLs
 let availableVoices = [];
 let isEditMode = false;
-let isDragMode = true; // Default enabled
 let currentEditItem = null;
-let currentIconSize = 120;
-
-// Drag & Drop State
-let draggedCard = null;
-let dragOffsetX = 0;
-let dragOffsetY = 0;
 
 // Audio Recording State
 let mediaRecorder;
@@ -197,21 +187,6 @@ async function init() {
         document.documentElement.setAttribute('data-theme', 'dark');
         themeToggle.checked = true;
     }
-
-    // Load icon size
-    const savedIconSize = localStorage.getItem('iconSize') || '120';
-    currentIconSize = parseInt(savedIconSize);
-    iconSizeSlider.value = currentIconSize;
-    sizeDisplay.textContent = currentIconSize;
-    updateIconSize();
-
-    // Load drag mode
-    const savedDragMode = localStorage.getItem('dragMode');
-    if (savedDragMode !== null) {
-        isDragMode = savedDragMode === 'true';
-        dragModeToggle.checked = isDragMode;
-    }
-
     showToast("¡Listo para usar!", 2000);
 }
 
@@ -258,14 +233,6 @@ async function loadPictograms() {
     });
 
     await Promise.all(fetchPromises);
-}
-
-// Update icon size CSS variable
-function updateIconSize() {
-    const cardHeightRatio = 1.67; // Card height is ~1.67x icon size (icon + label + gap)
-    const cardSize = currentIconSize * cardHeightRatio;
-    document.documentElement.style.setProperty('--icon-size', currentIconSize + 'px');
-    document.documentElement.style.setProperty('--card-size', cardSize + 'px');
 }
 
 // Render the grid board
@@ -318,10 +285,7 @@ function renderBoard() {
         card.appendChild(label);
 
         // Click Event
-        card.addEventListener('click', (e) => {
-            // Only process click if not dragging
-            if (draggedCard && e.target !== card) return;
-            
+        card.addEventListener('click', () => {
             if (isEditMode) {
                 openRecorderModal(item);
             } else {
@@ -329,13 +293,6 @@ function renderBoard() {
                 speakWord(item); // Provide immediate feedback
             }
         });
-
-        // Drag & Drop Events (only if drag mode enabled and not in edit mode)
-        if (isDragMode && !isEditMode) {
-            card.addEventListener('touchstart', handleDragStart);
-            card.addEventListener('touchmove', handleDragMove, { passive: false });
-            card.addEventListener('touchend', handleDragEnd);
-        }
 
         boardGrid.appendChild(card);
     });
@@ -353,48 +310,6 @@ function renderBoard() {
         addCard.addEventListener('click', openAddPictoModal);
         boardGrid.appendChild(addCard);
     }
-}
-
-// Drag & Drop Handlers
-function handleDragStart(e) {
-    if (isEditMode) return; // No dragging in edit mode
-    
-    draggedCard = e.currentTarget;
-    draggedCard.classList.add('dragging');
-    
-    // Store offset between touch and card position
-    const rect = draggedCard.getBoundingClientRect();
-    const touch = e.touches[0];
-    dragOffsetX = touch.clientX - rect.left;
-    dragOffsetY = touch.clientY - rect.top;
-}
-
-function handleDragMove(e) {
-    if (!draggedCard) return;
-    e.preventDefault();
-    
-    const touch = e.touches[0];
-    const x = touch.clientX - dragOffsetX;
-    const y = touch.clientY - dragOffsetY;
-    
-    draggedCard.style.position = 'fixed';
-    draggedCard.style.left = x + 'px';
-    draggedCard.style.top = y + 'px';
-    draggedCard.style.width = (currentIconSize * 1.67) + 'px';
-    draggedCard.style.zIndex = '101';
-}
-
-function handleDragEnd(e) {
-    if (!draggedCard) return;
-    
-    draggedCard.classList.remove('dragging');
-    draggedCard.style.position = '';
-    draggedCard.style.left = '';
-    draggedCard.style.top = '';
-    draggedCard.style.width = '';
-    draggedCard.style.zIndex = '';
-    
-    draggedCard = null;
 }
 
 // Add item to the phrase bar
@@ -497,6 +412,8 @@ async function speakFullPhrase() {
     btnClear.disabled = false;
 }
 
+// --- Recorder Modal Logic ---
+
 // --- Settings & PIN Logic ---
 
 themeToggle.addEventListener('change', (e) => {
@@ -506,26 +423,6 @@ themeToggle.addEventListener('change', (e) => {
     } else {
         document.documentElement.setAttribute('data-theme', 'light');
         localStorage.setItem('theme', 'light');
-    }
-});
-
-// Icon Size Slider
-iconSizeSlider.addEventListener('input', (e) => {
-    currentIconSize = parseInt(e.target.value);
-    sizeDisplay.textContent = currentIconSize;
-    localStorage.setItem('iconSize', currentIconSize);
-    updateIconSize();
-    renderBoard();
-});
-
-// Drag Mode Toggle
-dragModeToggle.addEventListener('change', (e) => {
-    isDragMode = e.target.checked;
-    localStorage.setItem('dragMode', isDragMode);
-    if (isDragMode) {
-        showToast("Arrastrar tarjetas activado");
-    } else {
-        showToast("Arrastrar tarjetas desactivado");
     }
 });
 
