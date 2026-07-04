@@ -19,12 +19,12 @@
             </div>
             <div class="action-buttons">
                 <button class="btn btn-speak" id="btn-speak" aria-label="Hablar frase">
-                    <svg viewBox="0 0 24 24" width="28" height="28" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon><path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"></path></svg>
+                    <svg viewBox="0 0 24 24" width="28" height="28" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"><polygon points="11 5 6 9 2 9 [...]
                 </button>
                 <button class="btn btn-clear" id="btn-clear" aria-label="Borrar frase">
-                    <svg viewBox="0 0 24 24" width="28" height="28" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+                    <svg viewBox="0 0 24 24" width="28" height="28" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2[...]
                 </button>
-                <button class="btn btn-settings" id="btn-settings" title="Configuración" style="background-color: var(--card-bg); border: 2px solid var(--border-color); font-size: 1.5rem;">⚙️</button>
+                <button class="btn btn-settings" id="btn-settings" title="Configuración" style="background-color: var(--card-bg); border: 2px solid var(--border-color); font-size: 1.5rem;">⚙️[...]
             </div>
         </header>
 
@@ -38,6 +38,17 @@
     <div id="settings-modal" class="modal-overlay">
         <div class="modal-content">
             <h2 style="margin-bottom: 1.5rem;">Configuración</h2>
+            
+            <!-- Icon Size Slider -->
+            <div class="form-group">
+                <label>📏 Tamaño de Iconos:</label>
+                <div class="size-slider-container" style="margin-top: 0.5rem;">
+                    <label style="font-weight: 600; color: var(--text-secondary); margin: 0;">Pequeño</label>
+                    <input type="range" id="icon-size-slider" min="60" max="150" value="120" step="10" style="flex: 1;">
+                    <span class="size-value"><span id="size-display">120</span>px</span>
+                </div>
+            </div>
+
             <div class="form-group">
                 <label for="voice-select">Voz de lectura robótica:</label>
                 <select id="voice-select" class="voice-select" style="width:100%; max-width: none;"></select>
@@ -56,9 +67,16 @@
                     <span class="slider round" style="background-color: #fca5a5;"></span>
                 </label>
             </div>
+            <div class="form-group" style="display: flex; justify-content: space-between; align-items: center; background: #e0f2fe; padding: 1rem; border-radius: var(--border-radius-sm);">
+                <label style="margin:0; display: flex; align-items: center; gap: 0.5rem; color: #0369a1;">🖐️ Arrastrar Tarjetas</label>
+                <label class="switch">
+                    <input type="checkbox" id="drag-mode-toggle" checked>
+                    <span class="slider round" style="background-color: #93c5fd;"></span>
+                </label>
+            </div>
             <hr style="margin: 1.5rem 0; border: none; border-top: 1px solid var(--border-color);">
             <div class="modal-actions" style="flex-direction: row; gap: 1rem;">
-                <button id="btn-change-pin" class="btn" style="flex: 1; background: var(--bg-color); color: var(--text-primary); border: 2px solid var(--border-color); height: 45px; border-radius: var(--border-radius-sm); font-weight: 700;">Cambiar PIN</button>
+                <button id="btn-change-pin" class="btn" style="flex: 1; background: var(--bg-color); color: var(--text-primary); border: 2px solid var(--border-color); height: 45px; border-radius:[...]
                 <button id="btn-close-settings" class="btn btn-cancel" style="flex: 1; margin: 0;">Cerrar</button>
             </div>
         </div>
