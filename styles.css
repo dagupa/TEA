@@ -51,6 +51,31 @@ body {
     gap: 1rem;
 }
 
+/* Brand Header */
+.app-brand {
+    text-align: center;
+    margin-top: 0.5rem;
+    margin-bottom: 0.25rem;
+}
+
+.brand-logo {
+    max-height: 80px;
+    width: auto;
+    object-fit: contain;
+}
+
+.logo-dark {
+    display: none;
+}
+
+[data-theme="dark"] .logo-light {
+    display: none;
+}
+
+[data-theme="dark"] .logo-dark {
+    display: inline-block;
+}
+
 /* Header / Phrase Bar */
 .phrase-bar-container {
     display: flex;
@@ -103,6 +128,8 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
+    gap: 0.5rem;
+    color: var(--text-primary);
     cursor: pointer;
     transition: var(--transition);
     box-shadow: var(--card-shadow);
@@ -202,6 +229,46 @@ body {
     font-weight: 700;
     text-align: center;
     text-transform: uppercase;
+}
+
+/* Icon Size Variants - Small */
+[data-icon-size="small"] .board-grid {
+    grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+}
+[data-icon-size="small"] .picto-card {
+    height: 150px;
+    padding: 0.75rem;
+    gap: 0.5rem;
+}
+[data-icon-size="small"] .picto-image-container {
+    width: 80px;
+    height: 80px;
+}
+[data-icon-size="small"] .picto-fallback-icon {
+    font-size: 2.5rem;
+}
+[data-icon-size="small"] .picto-label {
+    font-size: 1rem;
+}
+
+/* Icon Size Variants - Large */
+[data-icon-size="large"] .board-grid {
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+}
+[data-icon-size="large"] .picto-card {
+    height: 280px;
+    padding: 1.5rem;
+    gap: 1rem;
+}
+[data-icon-size="large"] .picto-image-container {
+    width: 180px;
+    height: 180px;
+}
+[data-icon-size="large"] .picto-fallback-icon {
+    font-size: 6rem;
+}
+[data-icon-size="large"] .picto-label {
+    font-size: 1.75rem;
 }
 
 /* Add Card */
@@ -470,33 +537,47 @@ padding: 0.5rem;
 .btn-save {
     background-color: #3b82f6;
     color: white;
-    width: 100%;
-    font-size: 1rem;
-    font-weight: 700;
-    height: 45px;
 }
 
 .btn-cancel {
     background-color: var(--border-color);
     color: var(--text-primary);
-    width: 100%;
-    height: 45px;
 }
 
 .btn-delete {
     background-color: #fee2e2;
     color: #ef4444;
-    width: 100%;
-    margin-top: 0.5rem;
-    height: 45px;
-    font-weight: 700;
 }
 
 .modal-actions {
     display: flex;
-    flex-direction: column;
-    gap: 0.5rem;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 1rem;
     margin-top: 1.5rem;
+}
+
+/* Close Modal Button */
+.btn-close-modal {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    background: transparent;
+    border: none;
+    color: var(--text-secondary);
+    cursor: pointer;
+    padding: 0.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    transition: var(--transition);
+}
+
+.btn-close-modal:hover {
+    background-color: var(--border-color);
+    color: var(--text-primary);
 }
 
 .recorder-status {
@@ -523,13 +604,15 @@ padding: 0.5rem;
     color: var(--text-primary);
 }
 
-.form-group input[type="text"] {
+.form-group input[type="text"],
+.form-group input[type="password"] {
     width: 100%;
     padding: 0.75rem;
     border-radius: var(--border-radius-sm);
     border: 1px solid #cbd5e1;
     font-family: inherit;
     font-size: 1rem;
+    box-sizing: border-box;
 }
 
 .form-group input[type="file"] {
@@ -628,4 +711,55 @@ padding: 0.5rem;
     input:checked+.slider:before {
         transform: translateX(26px);
     }
+}
+
+/* Drag and Drop styles (SortableJS) */
+.sortable-ghost {
+    opacity: 0.4;
+    background-color: #f1f5f9;
+    border: 2px dashed #94a3b8 !important;
+}
+
+.sortable-drag {
+    cursor: grabbing !important;
+    opacity: 1 !important;
+    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.2), 0 10px 10px -5px rgba(0, 0, 0, 0.1) !important;
+    transform: scale(1.05);
+}
+
+.board-container.edit-mode .picto-card {
+    cursor: grab;
+}
+.board-container.edit-mode .picto-card:active {
+    cursor: grabbing;
+}
+
+/* Exit Edit Mode Button */
+.exit-edit-mode-container {
+    position: fixed;
+    bottom: 5rem;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 1000;
+}
+
+.btn-exit-edit {
+    border-radius: 999px;
+    padding: 1rem 2rem;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+    font-size: 1.2rem;
+    background-color: #10b981;
+    color: white;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    border: none;
+    cursor: pointer;
+    transition: var(--transition);
+}
+
+.btn-exit-edit:active {
+    background-color: #059669;
+    transform: scale(0.95);
 }

@@ -22,7 +22,10 @@ const btnSpeak = document.getElementById('btn-speak');
 const btnClear = document.getElementById('btn-clear');
 const toastEl = document.getElementById('toast');
 const voiceSelect = document.getElementById('voice-select');
+const iconSizeSelect = document.getElementById('icon-size-select');
 const editModeToggle = document.getElementById('edit-mode-toggle');
+const exitEditModeContainer = document.getElementById('exit-edit-mode-container');
+const btnExitEdit = document.getElementById('btn-exit-edit');
 
 // Settings & PIN Elements
 const btnSettings = document.getElementById('btn-settings');
@@ -74,6 +77,8 @@ let pictoCache = {}; // Cache to store fetched ARASAAC image URLs
 let availableVoices = [];
 let isEditMode = false;
 let currentEditItem = null;
+let customOrder = JSON.parse(localStorage.getItem('board_order')) || [];
+let sortableInstance = null;
 
 // Audio Recording State
 let mediaRecorder;
@@ -187,6 +192,12 @@ async function init() {
         document.documentElement.setAttribute('data-theme', 'dark');
         themeToggle.checked = true;
     }
+
+    // Load icon size
+    const currentIconSize = localStorage.getItem('icon_size') || 'normal';
+    document.body.setAttribute('data-icon-size', currentIconSize);
+    if(iconSizeSelect) iconSizeSelect.value = currentIconSize;
+
     showToast("¡Listo para usar!", 2000);
 }
 
@@ -252,9 +263,22 @@ function renderBoard() {
     const newCustomPictos = customPictosCache.filter(p => !basicVocabulary.find(b => b.id === p.id));
     combinedVocabulary.push(...newCustomPictos);
     
+    // Sort combined vocabulary based on customOrder
+    if (customOrder && customOrder.length > 0) {
+        combinedVocabulary.sort((a, b) => {
+            const indexA = customOrder.indexOf(a.id);
+            const indexB = customOrder.indexOf(b.id);
+            if (indexA === -1 && indexB === -1) return 0;
+            if (indexA === -1) return 1;
+            if (indexB === -1) return -1;
+            return indexA - indexB;
+        });
+    }
+    
     combinedVocabulary.forEach(item => {
         const card = document.createElement('div');
         card.className = 'picto-card';
+        card.dataset.id = item.id;
         card.style.borderColor = item.color; // Subtle border hint
         
         // Image or Fallback container
@@ -426,6 +450,14 @@ themeToggle.addEventListener('change', (e) => {
     }
 });
 
+if (iconSizeSelect) {
+    iconSizeSelect.addEventListener('change', (e) => {
+        const newSize = e.target.value;
+        document.body.setAttribute('data-icon-size', newSize);
+        localStorage.setItem('icon_size', newSize);
+    });
+}
+
 let savedPin = localStorage.getItem('appPin');
 let isCreatingPin = !savedPin;
 
@@ -500,11 +532,38 @@ editModeToggle.addEventListener('change', (e) => {
     isEditMode = e.target.checked;
     if (isEditMode) {
         boardContainer.classList.add('edit-mode');
-        showToast("Modo Configuración. Toca una imagen del tablero para modificarla.", 4000);
+        exitEditModeContainer.style.display = 'block';
+        settingsModal.classList.remove('active'); // Close settings modal automatically
+        showToast("Modo Configuración. Arrastra las imágenes o tócalas para modificar.", 4000);
+        
+        // Initialize Sortable
+        sortableInstance = new Sortable(boardGrid, {
+            animation: 150,
+            ghostClass: 'sortable-ghost',
+            dragClass: 'sortable-drag',
+            filter: '.add-card', // Prevent dragging the add button
+            onEnd: function (evt) {
+                // Save new order
+                const items = boardGrid.querySelectorAll('.picto-card:not(.add-card)');
+                customOrder = Array.from(items).map(item => item.dataset.id).filter(id => id);
+                localStorage.setItem('board_order', JSON.stringify(customOrder));
+            }
+        });
     } else {
         boardContainer.classList.remove('edit-mode');
+        exitEditModeContainer.style.display = 'none';
+        if (sortableInstance) {
+            sortableInstance.destroy();
+            sortableInstance = null;
+        }
     }
     renderBoard(); // refresh to show/hide [+] card
+});
+
+btnExitEdit.addEventListener('click', () => {
+    editModeToggle.checked = false;
+    editModeToggle.dispatchEvent(new Event('change'));
+    showToast("Modo edición finalizado");
 });
 
 function openRecorderModal(item) {
