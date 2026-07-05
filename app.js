@@ -198,6 +198,10 @@ async function init() {
     document.body.setAttribute('data-icon-size', currentIconSize);
     if(iconSizeSelect) iconSizeSelect.value = currentIconSize;
 
+    // Load custom speak button image
+    const speakBtnImgData = localStorage.getItem('speak_btn_image');
+    updateSpeakButtonImage(speakBtnImgData);
+
     showToast("¡Listo para usar!", 2000);
 }
 
@@ -206,20 +210,30 @@ function populateVoiceList() {
     availableVoices = window.speechSynthesis.getVoices().filter(voice => voice.lang.startsWith('es'));
     voiceSelect.innerHTML = '';
     
+    const customOption = document.createElement('option');
+    customOption.textContent = "Personalizada";
+    customOption.value = "custom";
+    voiceSelect.appendChild(customOption);
+
     if (availableVoices.length === 0) {
         const option = document.createElement('option');
         option.textContent = "Voz por defecto";
+        option.value = "default";
         voiceSelect.appendChild(option);
-        return;
+    } else {
+        availableVoices.forEach((voice, index) => {
+            const option = document.createElement('option');
+            // Clean up the name for better readability
+            option.textContent = `${voice.name} (${voice.lang})`;
+            option.value = index;
+            voiceSelect.appendChild(option);
+        });
     }
 
-    availableVoices.forEach((voice, index) => {
-        const option = document.createElement('option');
-        // Clean up the name for better readability
-        option.textContent = `${voice.name} (${voice.lang})`;
-        option.value = index;
-        voiceSelect.appendChild(option);
-    });
+    const savedVoice = localStorage.getItem('voice_selection');
+    if (savedVoice) {
+        voiceSelect.value = savedVoice;
+    }
 }
 
 // Fetch pictograms from ARASAAC
@@ -381,8 +395,11 @@ function renderPhrase() {
 
 // Text-to-Speech & Custom Audio Functions
 function speakWord(item) {
-    // 1. Play custom recording if exists
-    if (customVoicesCache[item.id]) {
+    const selectedVoiceValue = voiceSelect ? voiceSelect.value : '';
+    const isCustomVoiceSelected = selectedVoiceValue === "custom";
+
+    // 1. Play custom recording if selected and exists
+    if (isCustomVoiceSelected && customVoicesCache[item.id]) {
         return new Promise((resolve) => {
             const url = URL.createObjectURL(customVoicesCache[item.id]);
             const audio = new Audio(url);
@@ -402,9 +419,10 @@ function speakWord(item) {
             utterance.lang = 'es-ES';
             
             if (availableVoices.length > 0) {
-                const selectedIndex = voiceSelect.value;
-                if (selectedIndex !== "") {
-                    utterance.voice = availableVoices[selectedIndex];
+                // If custom is selected but no recording exists, fallback to first robotic voice
+                const voiceIndex = isCustomVoiceSelected ? 0 : parseInt(selectedVoiceValue, 10);
+                if (!isNaN(voiceIndex) && availableVoices[voiceIndex]) {
+                    utterance.voice = availableVoices[voiceIndex];
                 }
             }
             
@@ -455,6 +473,12 @@ if (iconSizeSelect) {
         const newSize = e.target.value;
         document.body.setAttribute('data-icon-size', newSize);
         localStorage.setItem('icon_size', newSize);
+    });
+}
+
+if (voiceSelect) {
+    voiceSelect.addEventListener('change', (e) => {
+        localStorage.setItem('voice_selection', e.target.value);
     });
 }
 
@@ -541,6 +565,8 @@ editModeToggle.addEventListener('change', (e) => {
             animation: 150,
             ghostClass: 'sortable-ghost',
             dragClass: 'sortable-drag',
+            delay: 200, // delay in ms before drag starts
+            delayOnTouchOnly: true, // only apply delay on touch devices (allows scrolling)
             filter: '.add-card', // Prevent dragging the add button
             onEnd: function (evt) {
                 // Save new order
@@ -695,17 +721,46 @@ btnDeletePicto.addEventListener('click', () => {
     }
 });
 
-// --- Override Image Logic ---
-
-overridePictoFile.addEventListener('change', (e) => {
-    const file = e.target.files[0];
-    if (file) {
+// Utility: Resize image file to base64
+function resizeImageFile(file, maxWidth, maxHeight) {
+    return new Promise((resolve) => {
         const reader = new FileReader();
         reader.onload = function(event) {
-            currentOverrideDataUrl = event.target.result;
-            btnSaveOverrideImg.style.display = 'block';
+            const img = new Image();
+            img.onload = function() {
+                let width = img.width;
+                let height = img.height;
+                if (width > height) {
+                    if (width > maxWidth) {
+                        height = Math.round(height * (maxWidth / width));
+                        width = maxWidth;
+                    }
+                } else {
+                    if (height > maxHeight) {
+                        width = Math.round(width * (maxHeight / height));
+                        height = maxHeight;
+                    }
+                }
+                const canvas = document.createElement('canvas');
+                canvas.width = width;
+                canvas.height = height;
+                const ctx = canvas.getContext('2d');
+                ctx.drawImage(img, 0, 0, width, height);
+                resolve(canvas.toDataURL('image/jpeg', 0.8));
+            };
+            img.src = event.target.result;
         };
         reader.readAsDataURL(file);
+    });
+}
+
+// --- Override Image Logic ---
+
+overridePictoFile.addEventListener('change', async (e) => {
+    const file = e.target.files[0];
+    if (file) {
+        currentOverrideDataUrl = await resizeImageFile(file, 300, 300);
+        btnSaveOverrideImg.style.display = 'block';
     } else {
         btnSaveOverrideImg.style.display = 'none';
         currentOverrideDataUrl = null;
@@ -758,17 +813,13 @@ function closeAddPictoModal() {
     addPictoModal.classList.remove('active');
 }
 
-inputPictoFile.addEventListener('change', (e) => {
+inputPictoFile.addEventListener('change', async (e) => {
     const file = e.target.files[0];
     if (file) {
-        const reader = new FileReader();
-        reader.onload = function(event) {
-            currentPictoDataUrl = event.target.result;
-            previewPictoImg.src = currentPictoDataUrl;
-            previewPictoImg.style.display = 'block';
-            checkPictoFormValid();
-        };
-        reader.readAsDataURL(file);
+        currentPictoDataUrl = await resizeImageFile(file, 300, 300);
+        previewPictoImg.src = currentPictoDataUrl;
+        previewPictoImg.style.display = 'block';
+        checkPictoFormValid();
     }
 });
 
@@ -802,8 +853,56 @@ btnSavePicto.addEventListener('click', () => {
 
 btnCancelPicto.addEventListener('click', closeAddPictoModal);
 
+function updateSpeakButtonImage(dataUrl) {
+    const btnSpeakImg = document.getElementById('btn-speak-img');
+    const btnSpeakIcon = document.getElementById('btn-speak-icon');
+    if (btnSpeakImg && btnSpeakIcon) {
+        if (dataUrl) {
+            btnSpeakImg.src = dataUrl;
+            btnSpeakImg.style.display = 'block';
+            btnSpeakIcon.style.display = 'none';
+            btnSpeak.style.padding = '0'; // Remove padding to fit image perfectly
+        } else {
+            btnSpeakImg.style.display = 'none';
+            btnSpeakIcon.style.display = 'block';
+            btnSpeak.style.padding = ''; // Restore padding
+        }
+    }
+}
+
 // Event Listeners for Actions
-btnSpeak.addEventListener('click', () => {
+btnSpeak.addEventListener('click', (e) => {
+    if (isEditMode) {
+        e.preventDefault();
+        let input = document.getElementById('speak-btn-img-upload');
+        if (!input) {
+            input = document.createElement('input');
+            input.type = 'file';
+            input.id = 'speak-btn-img-upload';
+            input.accept = 'image/*';
+            input.style.display = 'none';
+            document.body.appendChild(input);
+            
+            input.addEventListener('change', async (ev) => {
+                const file = ev.target.files[0];
+                if (file) {
+                    try {
+                        const dataUrl = await resizeImageFile(file, 150, 150);
+                        localStorage.setItem('speak_btn_image', dataUrl);
+                        updateSpeakButtonImage(dataUrl);
+                        showToast("Icono de hablar actualizado");
+                    } catch (e) {
+                        showToast("Error al guardar la imagen (memoria llena)");
+                        console.error(e);
+                    }
+                }
+                ev.target.value = '';
+            });
+        }
+        input.click();
+        return;
+    }
+
     if (currentPhrase.length > 0) {
         speakFullPhrase();
         btnSpeak.style.transform = 'scale(0.9)';

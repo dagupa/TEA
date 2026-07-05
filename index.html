@@ -10,7 +10,12 @@
     <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
 </head>
 <body>
-    <div class="app-container">
+    <div class="app-container" style="position: relative;">
+        <!-- Settings Button -->
+        <button class="btn btn-settings" id="btn-settings" title="Configuración" aria-label="Configuración" style="position: absolute; top: 1rem; right: 1rem; background-color: var(--card-bg); border: 2px solid var(--border-color); font-size: 1.5rem; width: 50px; min-height: 50px; z-index: 10;">
+            <svg viewBox="0 0 24 24" width="24" height="24" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path></svg>
+        </button>
+
         <!-- Brand Header -->
         <header class="app-brand">
             <img src="Logo/logo-claro.png" alt="ALANTEA" class="brand-logo logo-light">
@@ -25,13 +30,19 @@
             </div>
             <div class="action-buttons">
                 <button class="btn btn-speak" id="btn-speak" aria-label="Hablar frase">
-                    <svg viewBox="0 0 24 24" width="28" height="28" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon></svg>
+                    <img id="btn-speak-img" src="" alt="Hablar" style="display: none; width: 100%; height: 100%; object-fit: cover; border-radius: inherit;">
+                    <svg id="btn-speak-icon" viewBox="0 0 24 24" width="28" height="28" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M13 21v-2a3 3 0 0 0-3-3H6a3 3 0 0 0-3 3v2"></path>
+                        <circle cx="8" cy="7" r="3"></circle>
+                        <path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"></path>
+                    </svg>
                 </button>
                 <button class="btn btn-clear" id="btn-clear" aria-label="Borrar frase">
-                    <svg viewBox="0 0 24 24" width="28" height="28" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
-                </button>
-                <button class="btn btn-settings" id="btn-settings" title="Configuración" style="background-color: var(--card-bg); border: 2px solid var(--border-color); font-size: 1.5rem;">
-                    <svg viewBox="0 0 24 24" width="28" height="28" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path></svg>
+                    <svg viewBox="0 0 24 24" width="28" height="28" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M21 4H8l-7 8 7 8h13a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2z"></path>
+                        <line x1="18" y1="9" x2="12" y2="15"></line>
+                        <line x1="12" y1="9" x2="18" y2="15"></line>
+                    </svg>
                 </button>
             </div>
         </header>
@@ -47,7 +58,7 @@
         <div class="modal-content">
             <h2 style="margin-bottom: 1.5rem;">Configuración</h2>
             <div class="form-group">
-                <label for="voice-select">Voz de lectura robótica:</label>
+                <label for="voice-select">Voz de lectura:</label>
                 <select id="voice-select" class="voice-select" style="width:100%; max-width: none;"></select>
             </div>
             <div class="form-group">
@@ -58,15 +69,18 @@
                     <option value="large">Grande</option>
                 </select>
             </div>
-            <div class="form-group" style="display: flex; justify-content: space-between; align-items: center; background: var(--bg-color); padding: 1rem; border-radius: var(--border-radius-sm);">
-                <label style="margin:0; display: flex; align-items: center; gap: 0.5rem;">🌙 Modo Oscuro</label>
+            <div class="form-group" style="display: flex; justify-content: space-between; align-items: center; background: transparent; padding: 1rem; border-radius: var(--border-radius-sm);">
+                <label style="margin:0; display: flex; align-items: center; gap: 0.5rem;" class="theme-label-text">
+                    <span class="theme-text-light">🌙 Modo oscuro</span>
+                    <span class="theme-text-dark">☀️ Modo claro</span>
+                </label>
                 <label class="switch">
                     <input type="checkbox" id="theme-toggle">
                     <span class="slider round"></span>
                 </label>
             </div>
-            <div class="form-group" style="display: flex; justify-content: space-between; align-items: center; background: #fee2e2; padding: 1rem; border-radius: var(--border-radius-sm);">
-                <label style="margin:0; display: flex; align-items: center; gap: 0.5rem; color: #b91c1c;">✏️ Editar Tablero</label>
+            <div class="form-group" style="display: flex; justify-content: space-between; align-items: center; background: transparent; padding: 1rem; border-radius: var(--border-radius-sm);">
+                <label style="margin:0; display: flex; align-items: center; gap: 0.5rem; color: var(--text-primary);">✏️ Editar Tablero</label>
                 <label class="switch">
                     <input type="checkbox" id="edit-mode-toggle">
                     <span class="slider round" style="background-color: #fca5a5;"></span>
@@ -90,7 +104,7 @@
             <h2 id="pin-title">Control Parental</h2>
             <p id="pin-desc" style="color: var(--text-secondary); margin-bottom: 1.5rem;">Introduce el PIN para acceder.</p>
             <div class="form-group">
-                <input type="password" id="pin-input" placeholder="****" maxlength="4" style="text-align:center; font-size: 2.5rem; letter-spacing: 0.5rem; padding-left: 0.5rem; font-weight: bold;">
+                <input type="password" id="pin-input" placeholder="****" maxlength="4" style="text-align:left; font-size: 2.5rem; letter-spacing: 0.5rem; padding-left: calc(50% - 60px); font-weight: bold; width: 100%;">
             </div>
             <p id="pin-error" style="color: #ef4444; display: none; margin-bottom: 1rem; font-weight: 600;">PIN incorrecto</p>
             <div class="modal-actions">

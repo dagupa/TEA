@@ -76,6 +76,18 @@ body {
     display: inline-block;
 }
 
+.theme-text-dark {
+    display: none;
+}
+
+[data-theme="dark"] .theme-text-light {
+    display: none;
+}
+
+[data-theme="dark"] .theme-text-dark {
+    display: inline;
+}
+
 /* Header / Phrase Bar */
 .phrase-bar-container {
     display: flex;
@@ -174,7 +186,7 @@ body {
 
 .board-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
     gap: 1rem;
     align-content: start;
 }
@@ -233,7 +245,7 @@ body {
 
 /* Icon Size Variants - Small */
 [data-icon-size="small"] .board-grid {
-    grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
 }
 [data-icon-size="small"] .picto-card {
     height: 150px;
@@ -253,7 +265,7 @@ body {
 
 /* Icon Size Variants - Large */
 [data-icon-size="large"] .board-grid {
-    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
 }
 [data-icon-size="large"] .picto-card {
     height: 280px;
