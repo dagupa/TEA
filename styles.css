@@ -759,6 +759,184 @@ padding: 0.5rem;
     transition: var(--transition);
 }
 
+    border: none;
+    color: var(--text-secondary);
+    cursor: pointer;
+    padding: 0.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    transition: var(--transition);
+}
+
+.btn-close-modal:hover {
+    background-color: var(--border-color);
+    color: var(--text-primary);
+}
+
+.recorder-status {
+    margin: 1rem 0;
+    font-weight: 600;
+    color: var(--text-secondary);
+    text-align: center;
+}
+
+.recording-active {
+    color: #ef4444;
+    animation: pulse 1.5s infinite;
+}
+
+.form-group {
+    margin: 1rem 0;
+    text-align: left;
+}
+
+.form-group label {
+    display: block;
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+    color: var(--text-primary);
+}
+
+.form-group input[type="text"],
+.form-group input[type="password"] {
+    width: 100%;
+    padding: 0.75rem;
+    border-radius: var(--border-radius-sm);
+    border: 1px solid #cbd5e1;
+    font-family: inherit;
+    font-size: 1rem;
+    box-sizing: border-box;
+}
+
+.form-group input[type="file"] {
+    width: 100%;
+    padding: 0.5rem 0;
+}
+
+@keyframes pulse {
+    0% {
+        opacity: 1;
+    }
+
+    50% {
+        opacity: 0.5;
+    }
+
+    100% {
+        opacity: 1;
+    }
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .editor-columns {
+        flex-direction: column;
+    }
+
+    .editor-col {
+        border-left: none !important;
+        padding-left: 0 !important;
+        border-bottom: 1px solid var(--border-color);
+        padding-bottom: 1.5rem;
+        margin-bottom: 1.5rem;
+    }
+
+    .editor-col:last-child {
+        border-bottom: none;
+        padding-bottom: 0;
+        margin-bottom: 0;
+    }
+}
+
+@media (max-width: 600px) {
+    .board-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 0.5rem;
+    }
+
+    .picto-card {
+        padding: 0.5rem;
+    }
+
+    .phrase-bar-container {
+        height: 70px;
+        gap: 0.5rem;
+    }
+
+    .phrase-bar {
+        padding: 0.25rem 0.5rem;
+    }
+
+    .modal-content {
+        padding: 1.5rem 1rem;
+    }
+
+    /* Enlarge switch for fingers */
+    .switch {
+        width: 56px;
+        height: 30px;
+    }
+
+    .slider:before {
+        height: 22px;
+        width: 22px;
+        left: 4px;
+        bottom: 4px;
+    }
+
+    input:checked+.slider:before {
+        transform: translateX(26px);
+    }
+}
+
+/* Drag and Drop styles (SortableJS) */
+.sortable-ghost {
+    opacity: 0.4;
+    background-color: #f1f5f9;
+    border: 2px dashed #94a3b8 !important;
+}
+
+.sortable-drag {
+    cursor: grabbing !important;
+    opacity: 1 !important;
+    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.2), 0 10px 10px -5px rgba(0, 0, 0, 0.1) !important;
+    transform: scale(1.05);
+}
+
+.board-container.edit-mode .picto-card {
+    cursor: grab;
+}
+.board-container.edit-mode .picto-card:active {
+    cursor: grabbing;
+}
+
+/* Exit Edit Mode Button */
+.exit-edit-mode-container {
+    position: fixed;
+    bottom: 5rem;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 1000;
+}
+
+.btn-exit-edit {
+    border-radius: 999px;
+    padding: 1rem 2rem;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+    font-size: 1.2rem;
+    background-color: #10b981;
+    color: white;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    border: none;
+    cursor: pointer;
+    transition: var(--transition);
+}
+
 .btn-exit-edit:active {
     background-color: #059669;
     transform: scale(0.95);
@@ -791,28 +969,6 @@ padding: 0.5rem;
 
     .action-buttons {
         justify-content: center;
-    }
-
-    .btn {
-        width: 60px;
-        min-height: 50px;
-    }
-
-    .board-grid {
-        grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
-        gap: 0.75rem;
-    }
-
-    .picto-card {
-        min-height: 140px;
-    }
-
-    .picto-card img {
-        height: 90px;
-    }
-
-    .picto-card span {
-        font-size: 1rem;
     }
 
     .modal-content {
