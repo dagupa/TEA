@@ -207,7 +207,6 @@ async function init() {
 
 // Populate voice list
 function populateVoiceList() {
-    availableVoices = window.speechSynthesis.getVoices().filter(voice => voice.lang.startsWith('es'));
     voiceSelect.innerHTML = '';
     
     const customOption = document.createElement('option');
@@ -215,19 +214,27 @@ function populateVoiceList() {
     customOption.value = "custom";
     voiceSelect.appendChild(customOption);
 
-    if (availableVoices.length === 0) {
-        const option = document.createElement('option');
-        option.textContent = "Voz por defecto";
-        option.value = "default";
-        voiceSelect.appendChild(option);
-    } else {
-        availableVoices.forEach((voice, index) => {
-            const option = document.createElement('option');
-            // Clean up the name for better readability
-            option.textContent = `${voice.name} (${voice.lang})`;
-            option.value = index;
-            voiceSelect.appendChild(option);
-        });
+    try {
+        if ('speechSynthesis' in window) {
+            availableVoices = window.speechSynthesis.getVoices().filter(voice => voice.lang.startsWith('es'));
+            
+            if (availableVoices.length === 0) {
+                const option = document.createElement('option');
+                option.textContent = "Voz por defecto";
+                option.value = "default";
+                voiceSelect.appendChild(option);
+            } else {
+                availableVoices.forEach((voice, index) => {
+                    const option = document.createElement('option');
+                    // Clean up the name for better readability
+                    option.textContent = `${voice.name} (${voice.lang})`;
+                    option.value = index;
+                    voiceSelect.appendChild(option);
+                });
+            }
+        }
+    } catch (e) {
+        console.error("Speech Synthesis no disponible", e);
     }
 
     const savedVoice = localStorage.getItem('voice_selection');
