@@ -925,6 +925,31 @@ btnClear.addEventListener('click', () => {
     window.speechSynthesis.cancel();
 });
 
+// Fullscreen Toggle Logic
+const btnFullscreen = document.getElementById('btn-fullscreen');
+const iconFullscreenEnter = document.getElementById('icon-fullscreen-enter');
+const iconFullscreenExit = document.getElementById('icon-fullscreen-exit');
+
+btnFullscreen.addEventListener('click', () => {
+    if (!document.fullscreenElement) {
+        document.documentElement.requestFullscreen().catch(err => {
+            showToast(`Error al activar pantalla completa: ${err.message}`);
+        });
+    } else {
+        document.exitFullscreen();
+    }
+});
+
+document.addEventListener('fullscreenchange', () => {
+    if (document.fullscreenElement) {
+        iconFullscreenEnter.style.display = 'none';
+        iconFullscreenExit.style.display = 'block';
+    } else {
+        iconFullscreenEnter.style.display = 'block';
+        iconFullscreenExit.style.display = 'none';
+    }
+});
+
 // Utility: Toast Notifications
 let toastTimeout;
 function showToast(message, duration = 3000) {
