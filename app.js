@@ -930,25 +930,51 @@ const btnFullscreen = document.getElementById('btn-fullscreen');
 const iconFullscreenEnter = document.getElementById('icon-fullscreen-enter');
 const iconFullscreenExit = document.getElementById('icon-fullscreen-exit');
 
-btnFullscreen.addEventListener('click', () => {
-    if (!document.fullscreenElement) {
-        document.documentElement.requestFullscreen().catch(err => {
-            showToast(`Error al activar pantalla completa: ${err.message}`);
-        });
-    } else {
-        document.exitFullscreen();
-    }
-});
+function getFullscreenElement() {
+    return document.fullscreenElement || document.webkitFullscreenElement || document.mozFullScreenElement || document.msFullscreenElement;
+}
 
-document.addEventListener('fullscreenchange', () => {
-    if (document.fullscreenElement) {
+function toggleFullscreen() {
+    const elem = document.documentElement;
+    if (!getFullscreenElement()) {
+        if (elem.requestFullscreen) {
+            elem.requestFullscreen().catch(err => showToast("Error pantalla completa: " + err.message));
+        } else if (elem.webkitRequestFullscreen) { /* Safari/Silk */
+            elem.webkitRequestFullscreen();
+        } else if (elem.msRequestFullscreen) { /* IE11 */
+            elem.msRequestFullscreen();
+        } else if (elem.mozRequestFullScreen) { /* Firefox */
+            elem.mozRequestFullScreen();
+        }
+    } else {
+        if (document.exitFullscreen) {
+            document.exitFullscreen();
+        } else if (document.webkitExitFullscreen) { /* Safari/Silk */
+            document.webkitExitFullscreen();
+        } else if (document.msExitFullscreen) { /* IE11 */
+            document.msExitFullscreen();
+        } else if (document.mozCancelFullScreen) { /* Firefox */
+            document.mozCancelFullScreen();
+        }
+    }
+}
+
+btnFullscreen.addEventListener('click', toggleFullscreen);
+
+function handleFullscreenChange() {
+    if (getFullscreenElement()) {
         iconFullscreenEnter.style.display = 'none';
         iconFullscreenExit.style.display = 'block';
     } else {
         iconFullscreenEnter.style.display = 'block';
         iconFullscreenExit.style.display = 'none';
     }
-});
+}
+
+document.addEventListener('fullscreenchange', handleFullscreenChange);
+document.addEventListener('webkitfullscreenchange', handleFullscreenChange);
+document.addEventListener('mozfullscreenchange', handleFullscreenChange);
+document.addEventListener('MSFullscreenChange', handleFullscreenChange);
 
 // Utility: Toast Notifications
 let toastTimeout;
