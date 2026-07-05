@@ -712,6 +712,7 @@ padding: 0.5rem;
         transform: translateX(26px);
     }
 }
+<<<<<<< HEAD
 
 /* Drag and Drop styles (SortableJS) */
 .sortable-ghost {
@@ -763,3 +764,5 @@ padding: 0.5rem;
     background-color: #059669;
     transform: scale(0.95);
 }
+=======
+>>>>>>> 31c857e311c6c788724cc8e1ab15c29a05bf32d5
