@@ -12,14 +12,19 @@
 <body>
     <div class="app-container" style="position: relative;">
         <!-- Fullscreen Button -->
-        <button class="btn btn-fullscreen" id="btn-fullscreen" title="Pantalla completa" aria-label="Pantalla completa" style="position: absolute; top: 1rem; right: calc(1rem + 60px); background-color: var(--card-bg); border: 2px solid var(--border-color); font-size: 1.5rem; width: 50px; min-height: 50px; z-index: 10;">
+        <button class="btn btn-fullscreen" id="btn-fullscreen" title="Pantalla completa" aria-label="Pantalla completa" style="position: absolute; top: 1rem; right: calc(1rem + 120px); background-color: var(--card-bg); border: 2px solid var(--border-color); font-size: 1.5rem; width: 50px; min-height: 50px; z-index: 10;">
             <svg id="icon-fullscreen-enter" viewBox="0 0 24 24" width="24" height="24" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"><path d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3"></path></svg>
             <svg id="icon-fullscreen-exit" viewBox="0 0 24 24" width="24" height="24" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round" style="display: none;"><path d="M8 3v3a2 2 0 0 1-2 2H3m18 0h-3a2 2 0 0 1-2-2V3m0 18v-3a2 2 0 0 1 2-2h3M3 16h3a2 2 0 0 1 2 2v3"></path></svg>
         </button>
 
         <!-- Settings Button -->
-        <button class="btn btn-settings" id="btn-settings" title="Configuración" aria-label="Configuración" style="position: absolute; top: 1rem; right: 1rem; background-color: var(--card-bg); border: 2px solid var(--border-color); font-size: 1.5rem; width: 50px; min-height: 50px; z-index: 10;">
+        <button class="btn btn-settings" id="btn-settings" title="Configuración" aria-label="Configuración" style="position: absolute; top: 1rem; right: calc(1rem + 60px); background-color: var(--card-bg); border: 2px solid var(--border-color); font-size: 1.5rem; width: 50px; min-height: 50px; z-index: 10;">
             <svg viewBox="0 0 24 24" width="24" height="24" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path></svg>
+        </button>
+
+        <!-- Help Button -->
+        <button class="btn btn-help" id="btn-help" title="Ayuda" aria-label="Ayuda" style="position: absolute; top: 1rem; right: 1rem; background-color: var(--card-bg); border: 2px solid var(--border-color); font-size: 1.5rem; width: 50px; min-height: 50px; z-index: 10;">
+            <svg viewBox="0 0 24 24" width="24" height="24" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"></path><line x1="12" y1="17" x2="12.01" y2="17"></line></svg>
         </button>
 
         <!-- Brand Header -->
@@ -68,6 +73,14 @@
                 <select id="voice-select" class="voice-select" style="width:100%; max-width: none;"></select>
             </div>
             <div class="form-group">
+                <label for="speech-rate-range">Velocidad de voz: <span id="speech-rate-value">0.9</span>x</label>
+                <input type="range" id="speech-rate-range" min="0.5" max="1.5" step="0.1" value="0.9" style="width:100%; accent-color: var(--primary-color);">
+            </div>
+            <div class="form-group">
+                <label for="speech-pitch-range">Tono de voz: <span id="speech-pitch-value">1.0</span></label>
+                <input type="range" id="speech-pitch-range" min="0.5" max="1.5" step="0.1" value="1.0" style="width:100%; accent-color: var(--primary-color);">
+            </div>
+            <div class="form-group">
                 <label for="icon-size-select">Tamaño de los iconos:</label>
                 <select id="icon-size-select" class="voice-select" style="width:100%; max-width: none;">
                     <option value="small">Pequeño</option>
@@ -93,6 +106,18 @@
                 </label>
             </div>
             <hr style="margin: 1.5rem 0; border: none; border-top: 1px solid var(--border-color);">
+            <!-- Exportar / Importar -->
+            <div class="modal-actions" style="flex-direction: row; gap: 1rem; margin-bottom: 0.75rem;">
+                <button id="btn-export-config" class="btn" title="Exportar configuración" aria-label="Exportar configuración" style="flex: 1; background: var(--bg-color); color: var(--text-primary); border: 2px solid var(--border-color); height: 45px; border-radius: var(--border-radius-sm); display: flex; align-items: center; justify-content: center; gap: 0.4rem; font-size: 0.85rem; font-family: inherit;">
+                    <svg viewBox="0 0 24 24" width="18" height="18" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+                    Exportar
+                </button>
+                <label id="label-import-config" class="btn" title="Importar configuración" style="flex: 1; background: var(--bg-color); color: var(--text-primary); border: 2px solid var(--border-color); height: 45px; border-radius: var(--border-radius-sm); display: flex; align-items: center; justify-content: center; gap: 0.4rem; font-size: 0.85rem; font-family: inherit; cursor: pointer; margin: 0;">
+                    <svg viewBox="0 0 24 24" width="18" height="18" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="17 8 12 3 7 8"></polyline><line x1="12" y1="3" x2="12" y2="15"></line></svg>
+                    Importar
+                    <input type="file" id="import-config-file" accept=".json" style="display: none;" aria-label="Seleccionar archivo de configuración">
+                </label>
+            </div>
             <div class="modal-actions" style="flex-direction: row; gap: 1rem;">
                 <button id="btn-change-pin" class="btn" title="Cambiar PIN" aria-label="Cambiar PIN" style="flex: 1; background: var(--bg-color); color: var(--text-primary); border: 2px solid var(--border-color); height: 45px; border-radius: var(--border-radius-sm);">
                     <svg viewBox="0 0 24 24" width="24" height="24" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
@@ -177,7 +202,7 @@
                     <input type="file" id="override-picto-file" accept="image/*" style="margin-bottom: 1rem; width: 100%;">
                     
                     <div class="modal-actions" style="margin-top: auto;">
-                        <button id="btn-save-override-img" class="btn btn-save" title="Guardar Nueva Foto" aria-label="Guardar Nueva Foto" style="background-color: #f59e0b; display: none;">
+                        <button id="btn-save-override-img" class="btn btn-save" title="Guardar Nueva Foto" aria-label="Guardar Nueva Foto" style="display: none;">
                             <svg viewBox="0 0 24 24" width="24" height="24" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"></path><polyline points="17 21 17 13 7 13 7 21"></polyline><polyline points="7 3 7 8 15 8"></polyline></svg>
                         </button>
                         <button id="btn-delete-override-img" class="btn btn-delete" title="Restaurar Dibujo Original" aria-label="Restaurar Dibujo Original" style="display: none;">
@@ -187,6 +212,17 @@
                             <svg viewBox="0 0 24 24" width="24" height="24" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path></svg>
                         </button>
                     </div>
+                </div>
+            </div>
+
+            <!-- Renombrar tarjeta -->
+            <div style="border-top: 1px solid var(--border-color); margin-top: 1.25rem; padding-top: 1.25rem;">
+                <div class="col-header" style="border-bottom: 3px solid #3b82f6; margin-bottom: 0.75rem;">✏️ 3. Nombre de la tarjeta</div>
+                <div style="display: flex; gap: 0.5rem; align-items: center;">
+                    <input type="text" id="rename-card-input" maxlength="30" placeholder="Nombre que aparecerá en la tarjeta..." style="flex: 1; padding: 0.65rem 1rem; border: 2px solid var(--border-color); border-radius: var(--border-radius-sm); background: var(--bg-color); color: var(--text-primary); font-size: 1rem; font-family: inherit;" aria-label="Nombre de la tarjeta">
+                    <button id="btn-save-rename" class="btn btn-save" title="Guardar nombre" aria-label="Guardar nombre" style="padding: 0.65rem 1rem;">
+                        <svg viewBox="0 0 24 24" width="20" height="20" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"></path><polyline points="17 21 17 13 7 13 7 21"></polyline><polyline points="7 3 7 8 15 8"></polyline></svg>
+                    </button>
                 </div>
             </div>
         </div>
@@ -212,6 +248,110 @@
                 <button id="btn-save-custom-picto" class="btn btn-save" title="Guardar Foto" aria-label="Guardar Foto" disabled>
                     <svg viewBox="0 0 24 24" width="24" height="24" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"></path><polyline points="17 21 17 13 7 13 7 21"></polyline><polyline points="7 3 7 8 15 8"></polyline></svg>
                 </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Help Modal -->
+    <div id="help-modal" class="modal-overlay">
+        <div class="modal-content" style="max-width: 640px; max-height: 85vh; overflow-y: auto;">
+            <h2 style="margin-bottom: 1.5rem; display: flex; align-items: center; gap: 0.5rem;">
+                <svg viewBox="0 0 24 24" width="28" height="28" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"></path><line x1="12" y1="17" x2="12.01" y2="17"></line></svg>
+                Ayuda
+            </h2>
+            <div style="text-align: left; line-height: 1.7; color: var(--text-primary);">
+
+                <h3 style="margin-bottom: 0.5rem;">¿Cómo utilizar la aplicación?</h3>
+                <p style="margin-bottom: 1rem; color: var(--text-secondary);">Esta aplicación es un comunicador que permite construir frases tocando pictogramas (imágenes con colores por categoría). Toca las imágenes del tablero para añadirlas a la barra superior y pulsa el botón hablar para escucharlas.</p>
+
+                <hr style="border: none; border-top: 1px solid var(--border-color); margin: 1rem 0;">
+
+                <h3 style="margin-bottom: 0.75rem;">🎨 Colores por categoría</h3>
+                <ul style="margin-bottom: 1rem; padding-left: 1.5rem;">
+                    <li style="margin-bottom: 0.4rem;"><span style="color:#1d4ed8; font-weight:700;">Azul</span> — Acciones: Quiero, Jugar, Dormir, Ayuda</li>
+                    <li style="margin-bottom: 0.4rem;"><span style="color:#c2410c; font-weight:700;">Naranja</span> — Comida y necesidades: Comer, Beber, Baño</li>
+                    <li style="margin-bottom: 0.4rem;"><span style="color:#7e22ce; font-weight:700;">Morado</span> — Sensaciones: Me duele, Frío, Calor</li>
+                    <li style="margin-bottom: 0.4rem;"><span style="color:#15803d; font-weight:700;">Verde</span> — Lugares: Calle, Casa</li>
+                    <li style="margin-bottom: 0.4rem;"><span style="color:#be185d; font-weight:700;">Rosa</span> — Respuestas: Sí, No</li>
+                </ul>
+
+                <hr style="border: none; border-top: 1px solid var(--border-color); margin: 1rem 0;">
+
+                <h3 style="margin-bottom: 0.75rem;">🔘 Botones de la esquina superior</h3>
+                <ul style="margin-bottom: 1rem; padding-left: 1.5rem;">
+                    <li style="margin-bottom: 0.4rem;"><strong>⛶ Pantalla completa:</strong> Amplía la app a pantalla completa. Pulsa de nuevo para salir.</li>
+                    <li style="margin-bottom: 0.4rem;"><strong>⚙️ Configuración:</strong> Accede a los ajustes (requiere PIN). Desde aquí puedes cambiar la voz, velocidad, tono, tamaño de iconos, tema oscuro/claro, activar el modo edición y exportar/importar la configuración.</li>
+                    <li style="margin-bottom: 0.4rem;"><strong>❓ Ayuda:</strong> Muestra esta pantalla.</li>
+                </ul>
+
+                <hr style="border: none; border-top: 1px solid var(--border-color); margin: 1rem 0;">
+
+                <h3 style="margin-bottom: 0.75rem;">🗣️ Barra de frase</h3>
+                <ul style="margin-bottom: 1rem; padding-left: 1.5rem;">
+                    <li style="margin-bottom: 0.4rem;"><strong>Botón hablar:</strong> Lee en voz alta toda la frase construida.</li>
+                    <li style="margin-bottom: 0.4rem;"><strong>Botón borrar (toque corto):</strong> Borra el <em>último</em> pictograma añadido.</li>
+                    <li style="margin-bottom: 0.4rem;"><strong>Botón borrar (pulsación larga, +0,6 s):</strong> Borra <em>toda</em> la frase de golpe.</li>
+                </ul>
+
+                <hr style="border: none; border-top: 1px solid var(--border-color); margin: 1rem 0;">
+
+                <h3 style="margin-bottom: 0.75rem;">🔊 Configuración de voz</h3>
+                <ul style="margin-bottom: 1rem; padding-left: 1.5rem;">
+                    <li style="margin-bottom: 0.4rem;">La app detecta automáticamente las voces en español del dispositivo y muestra primero las de mayor calidad (marcadas con ⭐).</li>
+                    <li style="margin-bottom: 0.4rem;">Puedes ajustar la <strong>velocidad</strong> y el <strong>tono</strong> de la voz desde Configuración.</li>
+                    <li style="margin-bottom: 0.4rem;">La opción <strong>🎙️ Grabación personalizada</strong> usa tus propias grabaciones de voz si las has añadido en el Modo Edición.</li>
+                </ul>
+
+                <hr style="border: none; border-top: 1px solid var(--border-color); margin: 1rem 0;">
+
+                <h3 style="margin-bottom: 0.75rem;">✏️ Modo Edición</h3>
+                <p style="margin-bottom: 0.5rem; color: var(--text-secondary);">Se activa desde Configuración (requiere PIN). Al activarlo aparecerá un botón verde para salir del modo al final de la pantalla.</p>
+                <ul style="margin-bottom: 1rem; padding-left: 1.5rem;">
+                    <li style="margin-bottom: 0.4rem;"><strong>Tocar una tarjeta:</strong> Abre el editor de esa tarjeta para grabar voz, cambiar imagen y renombrarla.</li>
+                    <li style="margin-bottom: 0.4rem;"><strong>👁️ Botón visibilidad:</strong> Aparece en la esquina superior izquierda de cada tarjeta. Úsalo para <strong>ocultar o mostrar</strong> tarjetas en el tablero sin borrarlas.</li>
+                    <li style="margin-bottom: 0.4rem;"><strong>Arrastrar tarjetas:</strong> Mantén pulsada una tarjeta para arrastrarla y cambiar el orden del tablero.</li>
+                    <li style="margin-bottom: 0.4rem;"><strong>🔍 Buscar Picto:</strong> Abre el buscador de la base de datos oficial ARASAAC. Busca cualquier palabra, selecciona el pictograma y añádelo al tablero con el nombre que prefieras.</li>
+                    <li style="margin-bottom: 0.4rem;"><strong>📷 Añadir Foto:</strong> Sube una imagen propia desde tu dispositivo para crear una tarjeta personalizada.</li>
+                </ul>
+
+                <hr style="border: none; border-top: 1px solid var(--border-color); margin: 1rem 0;">
+
+                <h3 style="margin-bottom: 0.75rem;">💾 Exportar e Importar</h3>
+                <ul style="margin-bottom: 1rem; padding-left: 1.5rem;">
+                    <li style="margin-bottom: 0.4rem;"><strong>Exportar:</strong> Guarda toda la configuración (tarjetas personalizadas, voces grabadas, ajustes y orden del tablero) en un archivo <code>.json</code>. Útil para hacer copias de seguridad o mover la configuración a otro dispositivo.</li>
+                    <li style="margin-bottom: 0.4rem;"><strong>Importar:</strong> Restaura una copia exportada. Los datos se <em>fusionan</em> con los existentes sin borrar nada. La app se recarga automáticamente al finalizar.</li>
+                </ul>
+
+            </div>
+            <div class="modal-actions" style="justify-content: center; margin-top: 1.5rem;">
+                <button id="btn-close-help" class="btn btn-save" title="Entendido" aria-label="Entendido" style="width: 100%;">
+                    Entendido
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- ARASAAC Pictogram Search Modal -->
+    <div id="arasaac-search-modal" class="modal-overlay">
+        <div class="modal-content" style="max-width: 700px; width: 95%; max-height: 85vh; display: flex; flex-direction: column;">
+            <button id="btn-close-arasaac-search" class="btn-close-modal" title="Cerrar" aria-label="Cerrar">
+                <svg viewBox="0 0 24 24" width="24" height="24" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+            </button>
+            <h2 style="margin-bottom: 1rem;">🔍 Buscar Pictograma</h2>
+            <div style="display: flex; gap: 0.5rem; margin-bottom: 1rem;">
+                <input type="text" id="arasaac-search-input" placeholder="Escribe una palabra... (ej: agua, correr, casa)" style="flex: 1; padding: 0.75rem 1rem; border: 2px solid var(--border-color); border-radius: var(--border-radius-sm); background: var(--bg-color); color: var(--text-primary); font-size: 1rem; font-family: inherit;" aria-label="Buscar pictograma">
+                <button id="btn-arasaac-search" class="btn btn-save" style="padding: 0 1.25rem; white-space: nowrap;" aria-label="Buscar">
+                    <svg viewBox="0 0 24 24" width="20" height="20" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+                </button>
+            </div>
+            <p id="arasaac-search-status" style="color: var(--text-secondary); font-size: 0.9rem; margin-bottom: 0.75rem; min-height: 1.2em;"></p>
+            <div id="arasaac-search-results" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(110px, 1fr)); gap: 0.75rem; overflow-y: auto; flex: 1; padding-right: 4px;"></div>
+            <div id="arasaac-confirm-area" style="display: none; border-top: 1px solid var(--border-color); padding-top: 1rem; margin-top: 1rem;">
+                <p style="margin-bottom: 0.5rem; color: var(--text-primary); font-weight: 600;">Nombre para la tarjeta:</p>
+                <div style="display: flex; gap: 0.5rem;">
+                    <input type="text" id="arasaac-confirm-name" placeholder="Nombre..." maxlength="30" style="flex: 1; padding: 0.65rem 1rem; border: 2px solid var(--border-color); border-radius: var(--border-radius-sm); background: var(--bg-color); color: var(--text-primary); font-size: 1rem; font-family: inherit;" aria-label="Nombre de la tarjeta">
+                    <button id="btn-arasaac-confirm-add" class="btn btn-save" style="padding: 0 1.25rem;" aria-label="Añadir al tablero">Añadir</button>
+                </div>
             </div>
         </div>
     </div>

@@ -1,18 +1,27 @@
 const basicVocabulary = [
+  // Acciones (Azul)
   { id: 'quiero', word: 'Quiero', search: 'quiero', bgColor: '#dce7f5', color: '#1d4ed8', icon: '✋' },
-  { id: 'comer', word: 'Comer', search: 'comer', bgColor: '#fce7f3', color: '#be185d', icon: '🍽️' },
-  { id: 'beber', word: 'Beber', search: 'beber', bgColor: '#e0f2fe', color: '#0369a1', icon: '💧' },
-  { id: 'bano', word: 'Ir al baño', search: 'baño', bgColor: '#fef3c7', color: '#b45309', icon: '🚽' },
-  { id: 'jugar', word: 'Jugar', search: 'jugar', bgColor: '#dcfce7', color: '#15803d', icon: '🧸' },
-  { id: 'dormir', word: 'Dormir', search: 'dormir', bgColor: '#f3e8ff', color: '#7e22ce', icon: '🛏️' },
-  { id: 'duele', word: 'Me duele', search: 'doler', bgColor: '#fee2e2', color: '#b91c1c', icon: '🤕' },
-  { id: 'ayuda', word: 'Ayuda', search: 'ayudar', bgColor: '#ffedd5', color: '#c2410c', icon: '🆘' },
-  { id: 'frio', word: 'Tengo frío', search: 'frio', bgColor: '#cffafe', color: '#0891b2', icon: '🥶' },
-  { id: 'calor', word: 'Tengo calor', search: 'calor', bgColor: '#fef08a', color: '#ca8a04', icon: '🥵' },
-  { id: 'calle', word: 'Ir a la calle', search: 'calle', bgColor: '#d1fae5', color: '#059669', icon: '🌳' },
-  { id: 'casa', word: 'Ir a casa', search: 'casa', bgColor: '#e0e7ff', color: '#4338ca', icon: '🏠' },
-  { id: 'si', word: 'Sí', search: 'si', bgColor: '#d1fae5', color: '#047857', icon: '✅' },
-  { id: 'no', word: 'No', search: 'no', bgColor: '#ffe4e6', color: '#be123c', icon: '❌' }
+  { id: 'jugar', word: 'Jugar', search: 'jugar', bgColor: '#dce7f5', color: '#1d4ed8', icon: '🧸' },
+  { id: 'dormir', word: 'Dormir', search: 'dormir', bgColor: '#dce7f5', color: '#1d4ed8', icon: '🛏️' },
+  { id: 'ayuda', word: 'Ayuda', search: 'ayudar', bgColor: '#dce7f5', color: '#1d4ed8', icon: '🆘' },
+  
+  // Comida y Necesidades (Naranja)
+  { id: 'comer', word: 'Comer', search: 'comer', bgColor: '#ffedd5', color: '#c2410c', icon: '🍽️' },
+  { id: 'beber', word: 'Beber', search: 'beber', bgColor: '#ffedd5', color: '#c2410c', icon: '💧' },
+  { id: 'bano', word: 'Ir al baño', search: 'baño', bgColor: '#ffedd5', color: '#c2410c', icon: '🚽' },
+  
+  // Sensaciones (Morado)
+  { id: 'duele', word: 'Me duele', search: 'doler', bgColor: '#f3e8ff', color: '#7e22ce', icon: '🤕' },
+  { id: 'frio', word: 'Tengo frío', search: 'frio', bgColor: '#f3e8ff', color: '#7e22ce', icon: '🥶' },
+  { id: 'calor', word: 'Tengo calor', search: 'calor', bgColor: '#f3e8ff', color: '#7e22ce', icon: '🥵' },
+  
+  // Lugares (Verde)
+  { id: 'calle', word: 'Ir a la calle', search: 'calle', bgColor: '#dcfce7', color: '#15803d', icon: '🌳' },
+  { id: 'casa', word: 'Ir a casa', search: 'casa', bgColor: '#dcfce7', color: '#15803d', icon: '🏠' },
+  
+  // Respuestas (Rosa)
+  { id: 'si', word: 'Sí', search: 'si', bgColor: '#fce7f3', color: '#be185d', icon: '✅' },
+  { id: 'no', word: 'No', search: 'no', bgColor: '#fce7f3', color: '#be185d', icon: '❌' }
 ];
 
 // DOM Elements
@@ -26,6 +35,10 @@ const iconSizeSelect = document.getElementById('icon-size-select');
 const editModeToggle = document.getElementById('edit-mode-toggle');
 const exitEditModeContainer = document.getElementById('exit-edit-mode-container');
 const btnExitEdit = document.getElementById('btn-exit-edit');
+const speechRateRange = document.getElementById('speech-rate-range');
+const speechPitchRange = document.getElementById('speech-pitch-range');
+const speechRateValue = document.getElementById('speech-rate-value');
+const speechPitchValue = document.getElementById('speech-pitch-value');
 
 // Settings & PIN Elements
 const btnSettings = document.getElementById('btn-settings');
@@ -56,6 +69,8 @@ const btnDeleteRec = document.getElementById('btn-delete-rec');
 const recorderStatus = document.getElementById('recorder-status');
 const audioPreview = document.getElementById('audio-preview');
 const btnDeletePicto = document.getElementById('btn-delete-picto');
+const renameCardInput = document.getElementById('rename-card-input');
+const btnSaveRename = document.getElementById('btn-save-rename');
 
 // Add Picto Modal Elements
 const addPictoModal = document.getElementById('add-picto-modal');
@@ -64,6 +79,11 @@ const inputPictoFile = document.getElementById('custom-picto-file');
 const previewPictoImg = document.getElementById('custom-picto-preview');
 const btnSavePicto = document.getElementById('btn-save-custom-picto');
 const btnCancelPicto = document.getElementById('btn-cancel-custom-picto');
+
+// Help Modal Elements
+const btnHelp = document.getElementById('btn-help');
+const helpModal = document.getElementById('help-modal');
+const btnCloseHelp = document.getElementById('btn-close-help');
 
 // Override Image Elements
 const overridePictoFile = document.getElementById('override-picto-file');
@@ -78,6 +98,7 @@ let availableVoices = [];
 let isEditMode = false;
 let currentEditItem = null;
 let customOrder = JSON.parse(localStorage.getItem('board_order')) || [];
+let hiddenCards = new Set(JSON.parse(localStorage.getItem('hidden_cards') || '[]'));
 let sortableInstance = null;
 
 // Audio Recording State
@@ -205,41 +226,75 @@ async function init() {
     showToast("¡Listo para usar!", 2000);
 }
 
-// Populate voice list
+// Palabras clave que identifican voces neurales / de alta calidad
+const NEURAL_KEYWORDS = ['neural', 'natural', 'online', 'premium', 'enhanced', 'aria', 'elvira', 'alvaro', 'jorge', 'laura', 'pablo', 'valentina'];
+
+function isNeuralVoice(voice) {
+    const nameLower = voice.name.toLowerCase();
+    return NEURAL_KEYWORDS.some(kw => nameLower.includes(kw));
+}
+
+function getVoiceLabel(voice) {
+    const quality = isNeuralVoice(voice) ? '⭐ ' : '';
+    // Simplify Microsoft voice names: "Microsoft Elvira Online (Natural) - Spanish (Spain)" → "Elvira"
+    let name = voice.name
+        .replace(/Microsoft /i, '')
+        .replace(/ Online \(Natural\)/i, '')
+        .replace(/ \(Natural\)/i, '')
+        .replace(/ - .+$/, ''); // remove locale suffix after dash
+    return `${quality}${name} (${voice.lang})`;
+}
+
+// Populate voice list — prioriza voces neurales
 function populateVoiceList() {
     voiceSelect.innerHTML = '';
-    
+
     const customOption = document.createElement('option');
-    customOption.textContent = "Personalizada";
-    customOption.value = "custom";
+    customOption.textContent = '🎙️ Grabación personalizada';
+    customOption.value = 'custom';
     voiceSelect.appendChild(customOption);
 
     try {
         if ('speechSynthesis' in window) {
-            availableVoices = window.speechSynthesis.getVoices().filter(voice => voice.lang.startsWith('es'));
-            
-            if (availableVoices.length === 0) {
+            const allSpanish = window.speechSynthesis.getVoices().filter(v => v.lang.startsWith('es'));
+
+            if (allSpanish.length === 0) {
                 const option = document.createElement('option');
-                option.textContent = "Voz por defecto";
-                option.value = "default";
+                option.textContent = 'Voz por defecto';
+                option.value = 'default';
                 voiceSelect.appendChild(option);
+                availableVoices = [];
             } else {
-                availableVoices.forEach((voice, index) => {
+                // Ordenar: neurales primero, luego alfabético
+                const sorted = [...allSpanish].sort((a, b) => {
+                    const aNeu = isNeuralVoice(a) ? 0 : 1;
+                    const bNeu = isNeuralVoice(b) ? 0 : 1;
+                    if (aNeu !== bNeu) return aNeu - bNeu;
+                    return a.name.localeCompare(b.name);
+                });
+                availableVoices = sorted;
+
+                sorted.forEach((voice, index) => {
                     const option = document.createElement('option');
-                    // Clean up the name for better readability
-                    option.textContent = `${voice.name} (${voice.lang})`;
+                    option.textContent = getVoiceLabel(voice);
                     option.value = index;
                     voiceSelect.appendChild(option);
                 });
             }
         }
     } catch (e) {
-        console.error("Speech Synthesis no disponible", e);
+        console.error('Speech Synthesis no disponible', e);
     }
 
+    // Restaurar selección guardada; si no hay, seleccionar la primera neural disponible
     const savedVoice = localStorage.getItem('voice_selection');
-    if (savedVoice) {
+    if (savedVoice && voiceSelect.querySelector(`option[value="${savedVoice}"]`)) {
         voiceSelect.value = savedVoice;
+    } else if (availableVoices.length > 0) {
+        // Autoselect first neural voice
+        const firstNeural = availableVoices.findIndex(v => isNeuralVoice(v));
+        voiceSelect.value = firstNeural >= 0 ? firstNeural : 0;
+        localStorage.setItem('voice_selection', voiceSelect.value);
     }
 }
 
@@ -297,11 +352,21 @@ function renderBoard() {
     }
     
     combinedVocabulary.forEach(item => {
+        const isHidden = hiddenCards.has(item.id);
+
+        // En modo normal, omitir las tarjetas ocultas
+        if (!isEditMode && isHidden) return;
+
         const card = document.createElement('div');
         card.className = 'picto-card';
         card.dataset.id = item.id;
-        card.style.borderColor = item.color; // Subtle border hint
-        
+        card.style.borderColor = item.color;
+
+        // En modo edición, aplicar opacidad a las ocultas
+        if (isEditMode && isHidden) {
+            card.style.opacity = '0.35';
+        }
+
         // Image or Fallback container
         const imgContainer = document.createElement('div');
         imgContainer.className = 'picto-image-container';
@@ -329,13 +394,30 @@ function renderBoard() {
         card.appendChild(imgContainer);
         card.appendChild(label);
 
+        // Botón de visibilidad en modo edición
+        if (isEditMode) {
+            const visBtn = document.createElement('button');
+            visBtn.className = 'card-visibility-btn';
+            visBtn.title = isHidden ? 'Mostrar tarjeta' : 'Ocultar tarjeta';
+            visBtn.setAttribute('aria-label', isHidden ? 'Mostrar tarjeta' : 'Ocultar tarjeta');
+            visBtn.innerHTML = isHidden
+                ? `<svg viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"><path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"></path><line x1="1" y1="1" x2="23" y2="23"></line></svg>`
+                : `<svg viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle></svg>`;
+
+            visBtn.addEventListener('click', (e) => {
+                e.stopPropagation(); // No abrir el modal de edición
+                toggleCardVisibility(item.id);
+            });
+            card.appendChild(visBtn);
+        }
+
         // Click Event
         card.addEventListener('click', () => {
             if (isEditMode) {
                 openRecorderModal(item);
             } else {
                 addToPhrase(item);
-                speakWord(item); // Provide immediate feedback
+                speakWord(item);
             }
         });
 
@@ -344,11 +426,26 @@ function renderBoard() {
     
     // Add custom picto button in Edit Mode
     if (isEditMode) {
+        // --- Botón: Buscar en ARASAAC ---
+        const searchCard = document.createElement('div');
+        searchCard.className = 'picto-card add-card';
+        searchCard.setAttribute('title', 'Buscar pictograma en ARASAAC');
+        searchCard.innerHTML = `
+            <div class="picto-image-container" style="background-color: transparent; border: none;">
+                <span class="picto-fallback-icon">🔍</span>
+            </div>
+            <span class="picto-label">Buscar Picto</span>
+        `;
+        searchCard.addEventListener('click', openArasaacSearchModal);
+        boardGrid.appendChild(searchCard);
+
+        // --- Botón: Añadir foto propia ---
         const addCard = document.createElement('div');
         addCard.className = 'picto-card add-card';
+        addCard.setAttribute('title', 'Añadir foto propia');
         addCard.innerHTML = `
             <div class="picto-image-container" style="background-color: transparent; border: none;">
-                <span class="picto-fallback-icon">➕</span>
+                <span class="picto-fallback-icon">📷</span>
             </div>
             <span class="picto-label">Añadir Foto</span>
         `;
@@ -400,12 +497,21 @@ function renderPhrase() {
     phraseBar.scrollLeft = phraseBar.scrollWidth;
 }
 
+// Helpers para leer ajustes de velocidad y tono
+function getSpeechRate() {
+    return parseFloat(localStorage.getItem('speech_rate') || '0.9');
+}
+
+function getSpeechPitch() {
+    return parseFloat(localStorage.getItem('speech_pitch') || '1.0');
+}
+
 // Text-to-Speech & Custom Audio Functions
 function speakWord(item) {
     const selectedVoiceValue = voiceSelect ? voiceSelect.value : '';
-    const isCustomVoiceSelected = selectedVoiceValue === "custom";
+    const isCustomVoiceSelected = selectedVoiceValue === 'custom';
 
-    // 1. Play custom recording if selected and exists
+    // 1. Reproducir grabación personalizada si existe
     if (isCustomVoiceSelected && customVoicesCache[item.id]) {
         return new Promise((resolve) => {
             const url = URL.createObjectURL(customVoicesCache[item.id]);
@@ -414,29 +520,29 @@ function speakWord(item) {
                 URL.revokeObjectURL(url);
                 resolve();
             };
+            audio.onerror = resolve;
             audio.play();
         });
-    } 
-    // 2. Fallback to Web Speech API
+    }
+    // 2. Web Speech API con voz seleccionada
     else if ('speechSynthesis' in window) {
         return new Promise((resolve) => {
             window.speechSynthesis.cancel();
-            
+
             const utterance = new SpeechSynthesisUtterance(item.word);
             utterance.lang = 'es-ES';
-            
+
             if (availableVoices.length > 0) {
-                // If custom is selected but no recording exists, fallback to first robotic voice
                 const voiceIndex = isCustomVoiceSelected ? 0 : parseInt(selectedVoiceValue, 10);
                 if (!isNaN(voiceIndex) && availableVoices[voiceIndex]) {
                     utterance.voice = availableVoices[voiceIndex];
                 }
             }
-            
-            utterance.pitch = 1.0; 
-            utterance.rate = 0.9;
+
+            utterance.rate = getSpeechRate();
+            utterance.pitch = getSpeechPitch();
             utterance.onend = resolve;
-            utterance.onerror = resolve; // resolve even on error to not block queue
+            utterance.onerror = resolve;
             window.speechSynthesis.speak(utterance);
         });
     } else {
@@ -486,6 +592,34 @@ if (iconSizeSelect) {
 if (voiceSelect) {
     voiceSelect.addEventListener('change', (e) => {
         localStorage.setItem('voice_selection', e.target.value);
+    });
+}
+
+// Velocidad de voz
+if (speechRateRange) {
+    // Cargar valor guardado
+    const savedRate = localStorage.getItem('speech_rate') || '0.9';
+    speechRateRange.value = savedRate;
+    if (speechRateValue) speechRateValue.textContent = parseFloat(savedRate).toFixed(1);
+
+    speechRateRange.addEventListener('input', (e) => {
+        const val = parseFloat(e.target.value).toFixed(1);
+        if (speechRateValue) speechRateValue.textContent = val;
+        localStorage.setItem('speech_rate', val);
+    });
+}
+
+// Tono de voz
+if (speechPitchRange) {
+    // Cargar valor guardado
+    const savedPitch = localStorage.getItem('speech_pitch') || '1.0';
+    speechPitchRange.value = savedPitch;
+    if (speechPitchValue) speechPitchValue.textContent = parseFloat(savedPitch).toFixed(1);
+
+    speechPitchRange.addEventListener('input', (e) => {
+        const val = parseFloat(e.target.value).toFixed(1);
+        if (speechPitchValue) speechPitchValue.textContent = val;
+        localStorage.setItem('speech_pitch', val);
     });
 }
 
@@ -548,6 +682,18 @@ btnCloseSettings.addEventListener('click', () => {
     settingsModal.classList.remove('active');
 });
 
+if (btnHelp) {
+    btnHelp.addEventListener('click', () => {
+        helpModal.classList.add('active');
+    });
+}
+
+if (btnCloseHelp) {
+    btnCloseHelp.addEventListener('click', () => {
+        helpModal.classList.remove('active');
+    });
+}
+
 btnChangePin.addEventListener('click', () => {
     const confirmChange = confirm("¿Quieres cambiar tu PIN actual?");
     if (confirmChange) {
@@ -599,6 +745,19 @@ btnExitEdit.addEventListener('click', () => {
     showToast("Modo edición finalizado");
 });
 
+// --- Ocultar / Mostrar tarjetas ---
+function toggleCardVisibility(id) {
+    if (hiddenCards.has(id)) {
+        hiddenCards.delete(id);
+        showToast('Tarjeta visible de nuevo');
+    } else {
+        hiddenCards.add(id);
+        showToast('Tarjeta oculta');
+    }
+    localStorage.setItem('hidden_cards', JSON.stringify([...hiddenCards]));
+    renderBoard();
+}
+
 function openRecorderModal(item) {
     currentEditItem = item;
     modalTitle.textContent = `Voz para: "${item.word}"`;
@@ -641,6 +800,9 @@ function openRecorderModal(item) {
     } else {
         btnDeletePicto.style.display = 'none';
     }
+
+    // Rellenar campo de renombrado con el nombre actual
+    if (renameCardInput) renameCardInput.value = item.word;
 }
 
 function closeRecorderModal() {
@@ -648,6 +810,57 @@ function closeRecorderModal() {
     if (mediaRecorder && mediaRecorder.state === 'recording') {
         mediaRecorder.stop();
     }
+}
+
+// Guardar nombre de la tarjeta
+if (btnSaveRename) {
+    btnSaveRename.addEventListener('click', saveCardRename);
+    renameCardInput.addEventListener('keypress', (e) => {
+        if (e.key === 'Enter') saveCardRename();
+    });
+}
+
+function saveCardRename() {
+    if (!currentEditItem) return;
+
+    const newName = renameCardInput ? renameCardInput.value.trim() : '';
+    if (!newName) {
+        showToast('El nombre no puede estar vacío');
+        return;
+    }
+    if (newName === currentEditItem.word) {
+        showToast('El nombre no ha cambiado');
+        return;
+    }
+
+    // Obtener o crear entrada en customPictosCache
+    const existing = customPictosCache.find(p => p.id === currentEditItem.id);
+    if (existing) {
+        // Actualizar nombre en la entrada existente
+        existing.word = newName;
+        saveCustomPicto(existing);
+    } else {
+        // Crear override de nombre para tarjeta del vocabulario básico
+        const pictoObj = {
+            id: currentEditItem.id,
+            word: newName,
+            search: currentEditItem.search || '',
+            bgColor: currentEditItem.bgColor,
+            color: currentEditItem.color,
+            icon: currentEditItem.icon || '',
+            imageUrl: currentEditItem.imageUrl || '',
+            isCustom: currentEditItem.isCustom || false,
+            isImageOverridden: currentEditItem.isImageOverridden || false
+        };
+        saveCustomPicto(pictoObj);
+    }
+
+    // Actualizar referencia en memoria para que el título del modal sea correcto
+    currentEditItem.word = newName;
+    modalTitle.textContent = `Configurar: "${newName}"`;
+
+    renderBoard();
+    showToast(`Nombre actualizado a "${newName}"`);
 }
 
 btnRecord.addEventListener('click', async () => {
@@ -919,11 +1132,56 @@ btnSpeak.addEventListener('click', (e) => {
     }
 });
 
-btnClear.addEventListener('click', () => {
+// Clear button: tap = borrar última palabra, pulsación larga = borrar todo
+const LONG_PRESS_DELAY = 600; // ms
+let clearLongPressTimer = null;
+let clearLongPressTriggered = false;
+
+function deleteLastWord() {
+    if (currentPhrase.length === 0) return;
+    currentPhrase.pop();
+    renderPhrase();
+    window.speechSynthesis.cancel();
+}
+
+function deleteAllWords() {
+    if (currentPhrase.length === 0) return;
     currentPhrase = [];
     renderPhrase();
     window.speechSynthesis.cancel();
-});
+    showToast('Frase borrada');
+}
+
+function onClearPressStart(e) {
+    e.preventDefault();
+    clearLongPressTriggered = false;
+    clearLongPressTimer = setTimeout(() => {
+        clearLongPressTriggered = true;
+        deleteAllWords();
+        // Feedback visual
+        btnClear.style.transform = 'scale(0.88)';
+        setTimeout(() => btnClear.style.transform = 'scale(1)', 200);
+    }, LONG_PRESS_DELAY);
+}
+
+function onClearPressEnd(e) {
+    clearTimeout(clearLongPressTimer);
+    if (!clearLongPressTriggered) {
+        deleteLastWord();
+        // Feedback visual
+        btnClear.style.transform = 'scale(0.9)';
+        setTimeout(() => btnClear.style.transform = 'scale(1)', 150);
+    }
+    clearLongPressTriggered = false;
+}
+
+// Soporte táctil y ratón
+btnClear.addEventListener('mousedown', onClearPressStart);
+btnClear.addEventListener('mouseup', onClearPressEnd);
+btnClear.addEventListener('mouseleave', () => clearTimeout(clearLongPressTimer));
+btnClear.addEventListener('touchstart', onClearPressStart, { passive: false });
+btnClear.addEventListener('touchend', onClearPressEnd);
+btnClear.addEventListener('touchcancel', () => clearTimeout(clearLongPressTimer));
 
 // Fullscreen Toggle Logic
 const btnFullscreen = document.getElementById('btn-fullscreen');
@@ -990,3 +1248,315 @@ function showToast(message, duration = 3000) {
 
 // Start application
 init();
+
+// --- ARASAAC Pictogram Search ---
+
+const ARASAAC_API_URL   = 'https://api.arasaac.org/api/pictograms/es/search/';
+const ARASAAC_IMG_URL   = 'https://static.arasaac.org/pictograms/';
+
+const arasaacSearchModal   = document.getElementById('arasaac-search-modal');
+const arasaacSearchInput   = document.getElementById('arasaac-search-input');
+const btnArasaacSearch     = document.getElementById('btn-arasaac-search');
+const arasaacSearchStatus  = document.getElementById('arasaac-search-status');
+const arasaacSearchResults = document.getElementById('arasaac-search-results');
+const arasaacConfirmArea   = document.getElementById('arasaac-confirm-area');
+const arasaacConfirmName   = document.getElementById('arasaac-confirm-name');
+const btnArasaacConfirmAdd = document.getElementById('btn-arasaac-confirm-add');
+const btnCloseArasaacSearch = document.getElementById('btn-close-arasaac-search');
+
+let selectedArasaacPicto = null; // { id, word, imageUrl }
+
+function openArasaacSearchModal() {
+    arasaacSearchModal.classList.add('active');
+    arasaacSearchInput.value = '';
+    arasaacSearchStatus.textContent = '';
+    arasaacSearchResults.innerHTML = '';
+    arasaacConfirmArea.style.display = 'none';
+    selectedArasaacPicto = null;
+    setTimeout(() => arasaacSearchInput.focus(), 100);
+}
+
+function closeArasaacSearchModal() {
+    arasaacSearchModal.classList.remove('active');
+    selectedArasaacPicto = null;
+}
+
+async function searchArasaacPictograms() {
+    const query = arasaacSearchInput.value.trim();
+    if (!query) return;
+
+    arasaacSearchStatus.textContent = 'Buscando...';
+    arasaacSearchResults.innerHTML = '';
+    arasaacConfirmArea.style.display = 'none';
+    selectedArasaacPicto = null;
+    btnArasaacSearch.disabled = true;
+
+    try {
+        const response = await fetch(`${ARASAAC_API_URL}${encodeURIComponent(query)}`);
+
+        if (!response.ok) {
+            arasaacSearchStatus.textContent = 'Error al conectar con ARASAAC. Comprueba tu conexión.';
+            return;
+        }
+
+        const data = await response.json();
+
+        if (!data || data.length === 0) {
+            arasaacSearchStatus.textContent = `No se encontraron pictogramas para "${query}".`;
+            return;
+        }
+
+        // Mostrar máximo 30 resultados
+        const results = data.slice(0, 30);
+        arasaacSearchStatus.textContent = `${results.length} resultado${results.length !== 1 ? 's' : ''} encontrado${results.length !== 1 ? 's' : ''}. Toca uno para seleccionarlo.`;
+
+        results.forEach(picto => {
+            const imgUrl = `${ARASAAC_IMG_URL}${picto._id}/${picto._id}_300.png`;
+            const keywords = picto.keywords || [];
+            const wordLabel = keywords[0] ? keywords[0].keyword : query;
+
+            const card = document.createElement('div');
+            card.style.cssText = 'display:flex;flex-direction:column;align-items:center;gap:4px;cursor:pointer;border:2px solid var(--border-color);border-radius:var(--border-radius-sm);padding:6px;background:var(--card-bg);transition:border-color 0.2s,transform 0.15s;';
+            card.setAttribute('role', 'button');
+            card.setAttribute('tabindex', '0');
+            card.setAttribute('aria-label', `Seleccionar pictograma: ${wordLabel}`);
+
+            const img = document.createElement('img');
+            img.src = imgUrl;
+            img.alt = wordLabel;
+            img.style.cssText = 'width:80px;height:80px;object-fit:contain;';
+            img.onerror = () => { card.style.display = 'none'; };
+
+            const lbl = document.createElement('span');
+            lbl.textContent = wordLabel;
+            lbl.style.cssText = 'font-size:0.75rem;text-align:center;color:var(--text-primary);line-height:1.2;word-break:break-word;max-width:90px;';
+
+            card.appendChild(img);
+            card.appendChild(lbl);
+
+            const selectPicto = () => {
+                // Deselect previous
+                arasaacSearchResults.querySelectorAll('[data-selected]').forEach(el => {
+                    el.removeAttribute('data-selected');
+                    el.style.borderColor = 'var(--border-color)';
+                    el.style.transform = 'scale(1)';
+                });
+
+                card.setAttribute('data-selected', 'true');
+                card.style.borderColor = 'var(--primary-color, #3b82f6)';
+                card.style.transform = 'scale(1.04)';
+
+                selectedArasaacPicto = { id: picto._id, word: wordLabel, imageUrl: imgUrl };
+                arasaacConfirmName.value = wordLabel;
+                arasaacConfirmArea.style.display = 'block';
+                arasaacConfirmName.focus();
+                // Scroll confirm area into view
+                arasaacConfirmArea.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+            };
+
+            card.addEventListener('click', selectPicto);
+            card.addEventListener('keypress', (e) => { if (e.key === 'Enter' || e.key === ' ') selectPicto(); });
+
+            arasaacSearchResults.appendChild(card);
+        });
+
+    } catch (err) {
+        console.error('Error ARASAAC search:', err);
+        arasaacSearchStatus.textContent = 'Error de red. Comprueba tu conexión a Internet.';
+    } finally {
+        btnArasaacSearch.disabled = false;
+    }
+}
+
+function confirmAddArasaacPicto() {
+    if (!selectedArasaacPicto) return;
+
+    const word = arasaacConfirmName.value.trim();
+    if (!word) {
+        arasaacConfirmName.focus();
+        showToast('Introduce un nombre para la tarjeta');
+        return;
+    }
+
+    const newId = 'arasaac_' + selectedArasaacPicto.id + '_' + Date.now();
+    const pictoObj = {
+        id: newId,
+        word: word,
+        search: '',
+        bgColor: '#f1f5f9',
+        color: '#334155',
+        icon: '🖼️',
+        imageUrl: selectedArasaacPicto.imageUrl,
+        isCustom: true
+    };
+
+    saveCustomPicto(pictoObj);
+    closeArasaacSearchModal();
+    renderBoard();
+    showToast(`"${word}" añadido al tablero`);
+}
+
+// Event listeners del buscador
+btnArasaacSearch.addEventListener('click', searchArasaacPictograms);
+arasaacSearchInput.addEventListener('keypress', (e) => {
+    if (e.key === 'Enter') searchArasaacPictograms();
+});
+btnArasaacConfirmAdd.addEventListener('click', confirmAddArasaacPicto);
+arasaacConfirmName.addEventListener('keypress', (e) => {
+    if (e.key === 'Enter') confirmAddArasaacPicto();
+});
+btnCloseArasaacSearch.addEventListener('click', closeArasaacSearchModal);
+
+// --- Exportar / Importar configuración ---
+
+const btnExportConfig   = document.getElementById('btn-export-config');
+const importConfigFile  = document.getElementById('import-config-file');
+
+// Convierte un Blob a cadena base64
+function blobToBase64(blob) {
+    return new Promise((resolve, reject) => {
+        const reader = new FileReader();
+        reader.onload  = () => resolve(reader.result.split(',')[1]); // quita el prefijo data:...
+        reader.onerror = reject;
+        reader.readAsDataURL(blob);
+    });
+}
+
+// Convierte base64 + mimeType a Blob
+function base64ToBlob(base64, mimeType = 'audio/webm') {
+    const bytes = atob(base64);
+    const arr   = new Uint8Array(bytes.length);
+    for (let i = 0; i < bytes.length; i++) arr[i] = bytes.charCodeAt(i);
+    return new Blob([arr], { type: mimeType });
+}
+
+async function exportConfiguration() {
+    try {
+        showToast('Preparando exportación...');
+
+        // 1. Pictogramas personalizados
+        const pictosData = customPictosCache.map(p => ({ ...p }));
+
+        // 2. Voces personalizadas (Blob → base64)
+        const voicesData = [];
+        for (const [id, blob] of Object.entries(customVoicesCache)) {
+            if (blob instanceof Blob) {
+                try {
+                    const base64 = await blobToBase64(blob);
+                    voicesData.push({ id, base64, mimeType: blob.type || 'audio/webm' });
+                } catch (e) {
+                    console.warn(`No se pudo exportar la voz de ${id}:`, e);
+                }
+            }
+        }
+
+        // 3. Ajustes de localStorage
+        const settingsKeys = ['theme', 'icon_size', 'voice_selection', 'speech_rate', 'speech_pitch', 'board_order', 'speak_btn_image'];
+        const settings = {};
+        settingsKeys.forEach(key => {
+            const val = localStorage.getItem(key);
+            if (val !== null) settings[key] = val;
+        });
+
+        const exportObj = {
+            version: 1,
+            exportedAt: new Date().toISOString(),
+            pictos: pictosData,
+            voices: voicesData,
+            settings
+        };
+
+        // 4. Descargar como archivo JSON
+        const json = JSON.stringify(exportObj, null, 2);
+        const blob = new Blob([json], { type: 'application/json' });
+        const url  = URL.createObjectURL(blob);
+        const a    = document.createElement('a');
+        const date = new Date().toISOString().slice(0, 10);
+        a.href     = url;
+        a.download = `comunicador-tea-${date}.json`;
+        a.click();
+        URL.revokeObjectURL(url);
+
+        showToast('Éxito: configuración exportada correctamente', 3000);
+    } catch (err) {
+        console.error('Error al exportar:', err);
+        showToast('Error al exportar la configuración');
+    }
+}
+
+async function importConfiguration(file) {
+    if (!file) return;
+
+    try {
+        showToast('Importando...');
+
+        const text = await file.text();
+        let data;
+        try {
+            data = JSON.parse(text);
+        } catch {
+            showToast('Error: el archivo no es un JSON válido');
+            return;
+        }
+
+        // Validar estructura mínima
+        if (!data.version || !Array.isArray(data.pictos) || !Array.isArray(data.voices)) {
+            showToast('Error: el archivo no es una exportación válida del comunicador');
+            return;
+        }
+
+        const confirmMsg = `Se importarán ${data.pictos.length} tarjeta(s) y ${data.voices.length} voz/voces grabadas.\n\nLos datos actuales se fusionarán (no se borrarán los existentes).\n\n¿Continuar?`;
+        if (!confirm(confirmMsg)) return;
+
+        // 1. Restaurar pictogramas en IndexedDB
+        for (const picto of data.pictos) {
+            if (picto.id && picto.word) {
+                saveCustomPicto(picto);
+            }
+        }
+
+        // 2. Restaurar voces (base64 → Blob → IndexedDB)
+        for (const voice of data.voices) {
+            if (voice.id && voice.base64) {
+                try {
+                    const blob = base64ToBlob(voice.base64, voice.mimeType || 'audio/webm');
+                    saveCustomVoice(voice.id, blob);
+                } catch (e) {
+                    console.warn(`No se pudo restaurar la voz de ${voice.id}:`, e);
+                }
+            }
+        }
+
+        // 3. Restaurar ajustes de localStorage (excepto PIN)
+        if (data.settings) {
+            const allowedKeys = ['theme', 'icon_size', 'voice_selection', 'speech_rate', 'speech_pitch', 'board_order', 'speak_btn_image'];
+            for (const [key, val] of Object.entries(data.settings)) {
+                if (allowedKeys.includes(key)) {
+                    localStorage.setItem(key, val);
+                }
+            }
+        }
+
+        // 4. Recargar la app para aplicar todo
+        showToast('Importación completada. Recargando...', 2500);
+        setTimeout(() => location.reload(), 2500);
+
+    } catch (err) {
+        console.error('Error al importar:', err);
+        showToast('Error inesperado al importar la configuración');
+    }
+}
+
+// Event listeners
+if (btnExportConfig) {
+    btnExportConfig.addEventListener('click', exportConfiguration);
+}
+if (importConfigFile) {
+    importConfigFile.addEventListener('change', (e) => {
+        const file = e.target.files[0];
+        if (file) {
+            importConfiguration(file);
+            e.target.value = ''; // reset para permitir importar el mismo archivo de nuevo
+        }
+    });
+}
