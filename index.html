@@ -4,6 +4,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Comunicador TEA</title>
+    <!-- PWA Settings -->
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#ffffff">
+    <link rel="apple-touch-icon" href="./Logo/logo-claro.png">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
     <link rel="stylesheet" href="styles.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -57,6 +63,11 @@
                 </button>
             </div>
         </header>
+
+        <!-- Board Navigation -->
+        <nav id="board-nav" class="board-nav" aria-label="Tableros de pictogramas">
+            <!-- Tabs injected by renderBoardNav() -->
+        </nav>
 
         <main class="board-container">
             <div class="board-grid" id="board-grid">
@@ -225,6 +236,18 @@
                     </button>
                 </div>
             </div>
+
+            <!-- Mover a otro tablero -->
+            <div style="border-top: 1px solid var(--border-color); margin-top: 1.25rem; padding-top: 1.25rem;">
+                <div class="col-header" style="border-bottom: 3px solid #8b5cf6; margin-bottom: 0.75rem;">📋 4. Tablero</div>
+                <div style="display: flex; gap: 0.5rem; align-items: center;">
+                    <select id="picto-board-select" class="voice-select" style="flex: 1; max-width: none;" aria-label="Mover pictograma a tablero"></select>
+                    <button id="btn-move-picto-board" class="btn btn-save" title="Mover al tablero seleccionado" aria-label="Mover" style="padding: 0.65rem 1rem; background-color: #8b5cf6;">
+                        <svg viewBox="0 0 24 24" width="20" height="20" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"><polyline points="5 9 2 12 5 15"></polyline><polyline points="19 9 22 12 19 15"></polyline><line x1="2" y1="12" x2="22" y2="12"></line></svg>
+                    </button>
+                </div>
+                <p id="picto-board-note" style="font-size: 0.82rem; color: var(--text-secondary); margin-top: 0.4rem;"></p>
+            </div>
         </div>
     </div>
 
@@ -238,6 +261,10 @@
             <div class="form-group">
                 <label for="custom-picto-name">Nombre / Palabra:</label>
                 <input type="text" id="custom-picto-name" placeholder="Ej: Mamá, Toby..." maxlength="20">
+            </div>
+            <div class="form-group">
+                <label for="custom-picto-board">Añadir al tablero:</label>
+                <select id="custom-picto-board" class="voice-select" style="width:100%; max-width: none;" aria-label="Tablero destino"></select>
             </div>
             <div class="form-group">
                 <label for="custom-picto-file">Seleccionar foto:</label>
@@ -338,11 +365,15 @@
                 <svg viewBox="0 0 24 24" width="24" height="24" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
             </button>
             <h2 style="margin-bottom: 1rem;">🔍 Buscar Pictograma</h2>
-            <div style="display: flex; gap: 0.5rem; margin-bottom: 1rem;">
+            <div style="display: flex; gap: 0.5rem; margin-bottom: 0.75rem;">
                 <input type="text" id="arasaac-search-input" placeholder="Escribe una palabra... (ej: agua, correr, casa)" style="flex: 1; padding: 0.75rem 1rem; border: 2px solid var(--border-color); border-radius: var(--border-radius-sm); background: var(--bg-color); color: var(--text-primary); font-size: 1rem; font-family: inherit;" aria-label="Buscar pictograma">
                 <button id="btn-arasaac-search" class="btn btn-save" style="padding: 0 1.25rem; white-space: nowrap;" aria-label="Buscar">
                     <svg viewBox="0 0 24 24" width="20" height="20" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
                 </button>
+            </div>
+            <div class="form-group" style="margin: 0 0 0.75rem 0;">
+                <label for="arasaac-board-select" style="font-size: 0.9rem;">Añadir al tablero:</label>
+                <select id="arasaac-board-select" class="voice-select" style="width:100%; max-width: none; margin-top: 0.25rem;" aria-label="Tablero destino"></select>
             </div>
             <p id="arasaac-search-status" style="color: var(--text-secondary); font-size: 0.9rem; margin-bottom: 0.75rem; min-height: 1.2em;"></p>
             <div id="arasaac-search-results" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(110px, 1fr)); gap: 0.75rem; overflow-y: auto; flex: 1; padding-right: 4px;"></div>
@@ -352,6 +383,25 @@
                     <input type="text" id="arasaac-confirm-name" placeholder="Nombre..." maxlength="30" style="flex: 1; padding: 0.65rem 1rem; border: 2px solid var(--border-color); border-radius: var(--border-radius-sm); background: var(--bg-color); color: var(--text-primary); font-size: 1rem; font-family: inherit;" aria-label="Nombre de la tarjeta">
                     <button id="btn-arasaac-confirm-add" class="btn btn-save" style="padding: 0 1.25rem;" aria-label="Añadir al tablero">Añadir</button>
                 </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Create Board Modal -->
+    <div id="create-board-modal" class="modal-overlay">
+        <div class="modal-content" style="max-width: 360px;">
+            <h2 style="margin-bottom: 1.5rem;">Nuevo Tablero</h2>
+            <div class="form-group">
+                <label for="new-board-name">Nombre del tablero:</label>
+                <input type="text" id="new-board-name" placeholder="Ej: Rutina, Colegio..." maxlength="20">
+            </div>
+            <div class="form-group">
+                <label for="new-board-icon">Icono (emoji):</label>
+                <input type="text" id="new-board-icon" placeholder="📂" maxlength="4" style="font-size: 1.8rem; text-align: center;">
+            </div>
+            <div class="modal-actions">
+                <button id="btn-save-new-board" class="btn btn-save">Crear Tablero</button>
+                <button id="btn-cancel-new-board" class="btn btn-cancel">Cancelar</button>
             </div>
         </div>
     </div>

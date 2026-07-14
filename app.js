@@ -1,27 +1,88 @@
+// ─── Pictos que aparecen en TODOS los tableros ───────────────────────────────
+const GLOBAL_PICTO_IDS = ['quiero', 'si', 'no'];
+
+// ─── Tableros predefinidos (no se pueden borrar) ─────────────────────────────
+const defaultBoards = [
+    { id: 'basico',      name: 'Básico',       icon: '⭐', isDefault: true },
+    { id: 'comida',      name: 'Comida',        icon: '🍽️', isDefault: true },
+    { id: 'actividades', name: 'Actividades',   icon: '🏃', isDefault: true },
+    { id: 'lugares',     name: 'Lugares',       icon: '🏠', isDefault: true },
+    { id: 'sensaciones', name: 'Sensaciones',   icon: '🌡️', isDefault: true },
+    { id: 'personas',    name: 'Personas',      icon: '🧍', isDefault: true },
+];
+
 const basicVocabulary = [
-  // Acciones (Azul)
-  { id: 'quiero', word: 'Quiero', search: 'quiero', bgColor: '#dce7f5', color: '#1d4ed8', icon: '✋' },
-  { id: 'jugar', word: 'Jugar', search: 'jugar', bgColor: '#dce7f5', color: '#1d4ed8', icon: '🧸' },
-  { id: 'dormir', word: 'Dormir', search: 'dormir', bgColor: '#dce7f5', color: '#1d4ed8', icon: '🛏️' },
-  { id: 'ayuda', word: 'Ayuda', search: 'ayudar', bgColor: '#dce7f5', color: '#1d4ed8', icon: '🆘' },
+  // Globales / Básico (Azul/Rosa) - 10 elementos
+  { id: 'quiero', word: 'Quiero',       search: 'quiero', boardId: 'basico',      bgColor: '#dce7f5', color: '#1d4ed8', icon: '✋' },
+  { id: 'si',     word: 'Sí',           search: 'si',     boardId: 'basico',      bgColor: '#fce7f3', color: '#be185d', icon: '✅' },
+  { id: 'no',     word: 'No',           search: 'no',     boardId: 'basico',      bgColor: '#fce7f3', color: '#be185d', icon: '❌' },
+  { id: 'ayuda',  word: 'Ayuda',        search: 'ayudar', boardId: 'basico',      bgColor: '#dce7f5', color: '#1d4ed8', icon: '🆘' },
+  { id: 'mas',    word: 'Más',          search: 'mas',    boardId: 'basico',      bgColor: '#dce7f5', color: '#1d4ed8', icon: '➕' },
+  { id: 'ya_esta',word: 'Ya está',      search: 'terminar',boardId: 'basico',     bgColor: '#dce7f5', color: '#1d4ed8', icon: '🏁' },
+  { id: 'bien',   word: 'Bien',         search: 'bien',   boardId: 'basico',      bgColor: '#fce7f3', color: '#be185d', icon: '👍' },
+  { id: 'mal',    word: 'Mal',          search: 'mal',    boardId: 'basico',      bgColor: '#fce7f3', color: '#be185d', icon: '👎' },
+  { id: 'por_favor',word: 'Por favor',  search: 'por favor',boardId: 'basico',    bgColor: '#fce7f3', color: '#be185d', icon: '🙏' },
+  { id: 'gracias',word: 'Gracias',      search: 'gracias',boardId: 'basico',      bgColor: '#fce7f3', color: '#be185d', icon: '🙌' },
   
-  // Comida y Necesidades (Naranja)
-  { id: 'comer', word: 'Comer', search: 'comer', bgColor: '#ffedd5', color: '#c2410c', icon: '🍽️' },
-  { id: 'beber', word: 'Beber', search: 'beber', bgColor: '#ffedd5', color: '#c2410c', icon: '💧' },
-  { id: 'bano', word: 'Ir al baño', search: 'baño', bgColor: '#ffedd5', color: '#c2410c', icon: '🚽' },
-  
-  // Sensaciones (Morado)
-  { id: 'duele', word: 'Me duele', search: 'doler', bgColor: '#f3e8ff', color: '#7e22ce', icon: '🤕' },
-  { id: 'frio', word: 'Tengo frío', search: 'frio', bgColor: '#f3e8ff', color: '#7e22ce', icon: '🥶' },
-  { id: 'calor', word: 'Tengo calor', search: 'calor', bgColor: '#f3e8ff', color: '#7e22ce', icon: '🥵' },
-  
-  // Lugares (Verde)
-  { id: 'calle', word: 'Ir a la calle', search: 'calle', bgColor: '#dcfce7', color: '#15803d', icon: '🌳' },
-  { id: 'casa', word: 'Ir a casa', search: 'casa', bgColor: '#dcfce7', color: '#15803d', icon: '🏠' },
-  
-  // Respuestas (Rosa)
-  { id: 'si', word: 'Sí', search: 'si', bgColor: '#fce7f3', color: '#be185d', icon: '✅' },
-  { id: 'no', word: 'No', search: 'no', bgColor: '#fce7f3', color: '#be185d', icon: '❌' }
+  // Comida y Bebida (Naranja: bgColor: '#ffedd5', color: '#c2410c') - 10 elementos
+  { id: 'comer',  word: 'Comer',        search: 'comer',  boardId: 'comida',      bgColor: '#ffedd5', color: '#c2410c', icon: '🍽️' },
+  { id: 'beber',  word: 'Beber',        search: 'beber',  boardId: 'comida',      bgColor: '#ffedd5', color: '#c2410c', icon: '💧' },
+  { id: 'agua',   word: 'Agua',         search: 'agua',   boardId: 'comida',      bgColor: '#ffedd5', color: '#c2410c', icon: '🥛' },
+  { id: 'zumo',   word: 'Zumo',         search: 'zumo',   boardId: 'comida',      bgColor: '#ffedd5', color: '#c2410c', icon: '🧃' },
+  { id: 'leche',  word: 'Leche',        search: 'leche',  boardId: 'comida',      bgColor: '#ffedd5', color: '#c2410c', icon: '🍼' },
+  { id: 'pan',    word: 'Pan',          search: 'pan',    boardId: 'comida',      bgColor: '#ffedd5', color: '#c2410c', icon: '🥖' },
+  { id: 'galleta',word: 'Galleta',      search: 'galleta',boardId: 'comida',      bgColor: '#ffedd5', color: '#c2410c', icon: '🍪' },
+  { id: 'fruta',  word: 'Fruta',        search: 'fruta',  boardId: 'comida',      bgColor: '#ffedd5', color: '#c2410c', icon: '🍎' },
+  { id: 'carne',  word: 'Carne',        search: 'carne',  boardId: 'comida',      bgColor: '#ffedd5', color: '#c2410c', icon: '🥩' },
+  { id: 'pescado',word: 'Pescado',      search: 'pescado',boardId: 'comida',      bgColor: '#ffedd5', color: '#c2410c', icon: '🐟' },
+
+  // Actividades (Azul: bgColor: '#dce7f5', color: '#1d4ed8') - 10 elementos
+  { id: 'jugar',  word: 'Jugar',        search: 'jugar',  boardId: 'actividades', bgColor: '#dce7f5', color: '#1d4ed8', icon: '🧸' },
+  { id: 'dormir', word: 'Dormir',       search: 'dormir', boardId: 'actividades', bgColor: '#dce7f5', color: '#1d4ed8', icon: '🛏️' },
+  { id: 'pintar', word: 'Pintar',       search: 'pintar', boardId: 'actividades', bgColor: '#dce7f5', color: '#1d4ed8', icon: '🎨' },
+  { id: 'leer',   word: 'Leer',         search: 'leer',   boardId: 'actividades', bgColor: '#dce7f5', color: '#1d4ed8', icon: '📚' },
+  { id: 'tele',   word: 'Ver la tele',  search: 'television',boardId: 'actividades',bgColor: '#dce7f5', color: '#1d4ed8', icon: '📺' },
+  { id: 'pasear', word: 'Pasear',       search: 'pasear', boardId: 'actividades', bgColor: '#dce7f5', color: '#1d4ed8', icon: '🚶' },
+  { id: 'banarse',word: 'Bañarse',      search: 'bañar',  boardId: 'actividades', bgColor: '#dce7f5', color: '#1d4ed8', icon: '🛁' },
+  { id: 'saltar', word: 'Saltar',       search: 'saltar', boardId: 'actividades', bgColor: '#dce7f5', color: '#1d4ed8', icon: '🦘' },
+  { id: 'correr', word: 'Correr',       search: 'correr', boardId: 'actividades', bgColor: '#dce7f5', color: '#1d4ed8', icon: '🏃' },
+  { id: 'bailar', word: 'Bailar',       search: 'bailar', boardId: 'actividades', bgColor: '#dce7f5', color: '#1d4ed8', icon: '💃' },
+
+  // Lugares (Verde: bgColor: '#dcfce7', color: '#15803d') - 10 elementos
+  { id: 'bano',   word: 'Ir al baño',   search: 'baño',   boardId: 'lugares',     bgColor: '#dcfce7', color: '#15803d', icon: '🚽' },
+  { id: 'calle',  word: 'Ir a la calle',search: 'calle',  boardId: 'lugares',     bgColor: '#dcfce7', color: '#15803d', icon: '🌳' },
+  { id: 'casa',   word: 'Ir a casa',    search: 'casa',   boardId: 'lugares',     bgColor: '#dcfce7', color: '#15803d', icon: '🏠' },
+  { id: 'colegio',word: 'Colegio',      search: 'colegio',boardId: 'lugares',     bgColor: '#dcfce7', color: '#15803d', icon: '🏫' },
+  { id: 'parque', word: 'Parque',       search: 'parque', boardId: 'lugares',     bgColor: '#dcfce7', color: '#15803d', icon: '🛝' },
+  { id: 'coche',  word: 'Coche',        search: 'coche',  boardId: 'lugares',     bgColor: '#dcfce7', color: '#15803d', icon: '🚗' },
+  { id: 'tienda', word: 'Tienda',       search: 'tienda', boardId: 'lugares',     bgColor: '#dcfce7', color: '#15803d', icon: '🛒' },
+  { id: 'piscina',word: 'Piscina',      search: 'piscina',boardId: 'lugares',     bgColor: '#dcfce7', color: '#15803d', icon: '🏊' },
+  { id: 'playa',  word: 'Playa',        search: 'playa',  boardId: 'lugares',     bgColor: '#dcfce7', color: '#15803d', icon: '🏖️' },
+  { id: 'hospital',word:'Hospital',     search: 'hospital',boardId: 'lugares',    bgColor: '#dcfce7', color: '#15803d', icon: '🏥' },
+
+  // Sensaciones (Morado: bgColor: '#f3e8ff', color: '#7e22ce') - 10 elementos
+  { id: 'duele',  word: 'Me duele',     search: 'doler',  boardId: 'sensaciones', bgColor: '#f3e8ff', color: '#7e22ce', icon: '🤕' },
+  { id: 'frio',   word: 'Tengo frío',   search: 'frio',   boardId: 'sensaciones', bgColor: '#f3e8ff', color: '#7e22ce', icon: '🥶' },
+  { id: 'calor',  word: 'Tengo calor',  search: 'calor',  boardId: 'sensaciones', bgColor: '#f3e8ff', color: '#7e22ce', icon: '🥵' },
+  { id: 'cansado',word: 'Cansado',      search: 'cansado',boardId: 'sensaciones', bgColor: '#f3e8ff', color: '#7e22ce', icon: '🥱' },
+  { id: 'enfermo',word: 'Enfermo',      search: 'enfermo',boardId: 'sensaciones', bgColor: '#f3e8ff', color: '#7e22ce', icon: '🤒' },
+  { id: 'feliz',  word: 'Feliz',        search: 'feliz',  boardId: 'sensaciones', bgColor: '#f3e8ff', color: '#7e22ce', icon: '😀' },
+  { id: 'triste', word: 'Triste',       search: 'triste', boardId: 'sensaciones', bgColor: '#f3e8ff', color: '#7e22ce', icon: '😢' },
+  { id: 'enfadado',word:'Enfadado',     search: 'enfadado',boardId: 'sensaciones',bgColor: '#f3e8ff', color: '#7e22ce', icon: '😠' },
+  { id: 'miedo',  word: 'Miedo',        search: 'miedo',  boardId: 'sensaciones', bgColor: '#f3e8ff', color: '#7e22ce', icon: '😨' },
+  { id: 'aburrido',word:'Aburrido',     search: 'aburrido',boardId: 'sensaciones',bgColor: '#f3e8ff', color: '#7e22ce', icon: '😒' },
+
+  // Personas (Amarillo: bgColor: '#fef9c3', color: '#a16207') - 10 elementos
+  { id: 'yo',     word: 'Yo',           search: 'yo',     boardId: 'personas',    bgColor: '#fef9c3', color: '#a16207', icon: '🧑' },
+  { id: 'tu',     word: 'Tú',           search: 'tu',     boardId: 'personas',    bgColor: '#fef9c3', color: '#a16207', icon: '👉' },
+  { id: 'mama',   word: 'Mamá',         search: 'mama',   boardId: 'personas',    bgColor: '#fef9c3', color: '#a16207', icon: '👩' },
+  { id: 'papa',   word: 'Papá',         search: 'papa',   boardId: 'personas',    bgColor: '#fef9c3', color: '#a16207', icon: '👨' },
+  { id: 'abuelo', word: 'Abuelo',       search: 'abuelo', boardId: 'personas',    bgColor: '#fef9c3', color: '#a16207', icon: '👴' },
+  { id: 'abuela', word: 'Abuela',       search: 'abuela', boardId: 'personas',    bgColor: '#fef9c3', color: '#a16207', icon: '👵' },
+  { id: 'hermano',word: 'Hermano',      search: 'hermano',boardId: 'personas',    bgColor: '#fef9c3', color: '#a16207', icon: '👦' },
+  { id: 'amigo',  word: 'Amigo',        search: 'amigo',  boardId: 'personas',    bgColor: '#fef9c3', color: '#a16207', icon: '🫂' },
+  { id: 'profesor',word:'Profesor',     search: 'profesor',boardId: 'personas',   bgColor: '#fef9c3', color: '#a16207', icon: '👩‍🏫' },
+  { id: 'medico', word: 'Médico',       search: 'medico', boardId: 'personas',    bgColor: '#fef9c3', color: '#a16207', icon: '👨‍⚕️' }
 ];
 
 // DOM Elements
@@ -105,8 +166,14 @@ let sortableInstance = null;
 let mediaRecorder;
 let audioChunks = [];
 let currentAudioBlob = null;
-let customVoicesCache = {}; // Cache IndexedDB blobs in memory for fast playback
-let customPictosCache = []; // Cache custom picto objects
+let customVoicesCache = {};
+let customPictosCache = [];
+
+// ─── Board state ────────────────────────────────────────────────────────────
+let currentBoardId = localStorage.getItem('current_board') || 'basico';
+let customBoards = [];        // boards created by tutor, loaded from IndexedDB
+// pictoOverrides: { [pictoId]: boardId } — moves a predefined picto to another board
+let pictoOverrides = JSON.parse(localStorage.getItem('picto_overrides') || '{}');
 
 // --- IndexedDB for Custom Voices and Pictos ---
 const dbName = 'TeaVoicesDB';
@@ -115,8 +182,8 @@ let db;
 
 function initDB() {
     return new Promise((resolve, reject) => {
-        // Bump version to 2 to create new store
-        const request = indexedDB.open(dbName, 2);
+        // Version 3: adds 'boards' store
+        const request = indexedDB.open(dbName, 3);
         request.onupgradeneeded = (e) => {
             let db = e.target.result;
             if (!db.objectStoreNames.contains(storeName)) {
@@ -125,11 +192,13 @@ function initDB() {
             if (!db.objectStoreNames.contains('custom_pictos')) {
                 db.createObjectStore('custom_pictos', { keyPath: 'id' });
             }
+            if (!db.objectStoreNames.contains('boards')) {
+                db.createObjectStore('boards', { keyPath: 'id' });
+            }
         };
         request.onsuccess = (e) => {
             db = e.target.result;
-            // Load existing voices into memory cache
-            const transaction = db.transaction([storeName, 'custom_pictos'], 'readonly');
+            const transaction = db.transaction([storeName, 'custom_pictos', 'boards'], 'readonly');
             
             // Load voices
             const voicesStore = transaction.objectStore(storeName);
@@ -145,6 +214,13 @@ function initDB() {
             const getPictosRequest = pictosStore.getAll();
             getPictosRequest.onsuccess = () => {
                 customPictosCache = getPictosRequest.result;
+            };
+
+            // Load custom boards
+            const boardsStore = transaction.objectStore('boards');
+            const getBoardsRequest = boardsStore.getAll();
+            getBoardsRequest.onsuccess = () => {
+                customBoards = getBoardsRequest.result;
             };
 
             transaction.oncomplete = () => resolve();
@@ -192,6 +268,83 @@ function deleteCustomPicto(id) {
     customPictosCache = customPictosCache.filter(p => p.id !== id);
 }
 
+// ─── Board CRUD ─────────────────────────────────────────────────────────────
+function saveCustomBoard(boardObj) {
+    const transaction = db.transaction(['boards'], 'readwrite');
+    transaction.objectStore('boards').put(boardObj);
+    const idx = customBoards.findIndex(b => b.id === boardObj.id);
+    if (idx >= 0) customBoards[idx] = boardObj; else customBoards.push(boardObj);
+}
+
+function deleteCustomBoard(id) {
+    const transaction = db.transaction(['boards'], 'readwrite');
+    transaction.objectStore('boards').delete(id);
+    customBoards = customBoards.filter(b => b.id !== id);
+    // Move pictos of that board back to 'basico'
+    customPictosCache.forEach(p => {
+        if (p.boardId === id) {
+            p.boardId = 'basico';
+            saveCustomPicto(p);
+        }
+    });
+    // Remove overrides pointing to deleted board
+    let changed = false;
+    Object.keys(pictoOverrides).forEach(k => {
+        if (pictoOverrides[k] === id) { delete pictoOverrides[k]; changed = true; }
+    });
+    if (changed) localStorage.setItem('picto_overrides', JSON.stringify(pictoOverrides));
+}
+
+// Returns the effective boardId of a predefined picto (respects overrides)
+function getEffectiveBoardId(item) {
+    return pictoOverrides[item.id] || item.boardId;
+}
+
+// Move a predefined picto to another board
+function movePictoToBoard(pictoId, newBoardId) {
+    pictoOverrides[pictoId] = newBoardId;
+    localStorage.setItem('picto_overrides', JSON.stringify(pictoOverrides));
+}
+
+// Returns all boards (default + custom)
+function getAllBoards() {
+    return [...defaultBoards, ...customBoards];
+}
+
+// Returns the items to show for the currently active board
+function getItemsForBoard(boardId) {
+    const allBasic = basicVocabulary.map(item => {
+        const override = customPictosCache.find(p => p.id === item.id);
+        return override ? { ...item, imageUrl: override.imageUrl, word: override.word, isImageOverridden: true } : item;
+    });
+
+    const board = getAllBoards().find(b => b.id === boardId);
+    const isCustomBoard = board && !board.isDefault;
+
+    if (isCustomBoard) {
+        // Custom board: show its pictoRefs (from any board) + global pictos
+        const refs = board.pictoRefs || [];
+        const refItems = refs.map(id => {
+            const basic = allBasic.find(b => b.id === id);
+            if (basic) return basic;
+            return customPictosCache.find(p => p.id === id);
+        }).filter(Boolean);
+        // Globals always appear first (but avoid duplicates)
+        const globalItems = allBasic.filter(b => GLOBAL_PICTO_IDS.includes(b.id) && !refs.includes(b.id));
+        return [...globalItems, ...refItems];
+    }
+
+    // Default board: filter by boardId + global pictos
+    const ownItems = allBasic.filter(item => {
+        const eff = getEffectiveBoardId(item);
+        return eff === boardId && !GLOBAL_PICTO_IDS.includes(item.id);
+    });
+    const customOwn = customPictosCache.filter(p => !basicVocabulary.find(b => b.id === p.id) && (p.boardId || 'basico') === boardId);
+    const globalItems = allBasic.filter(b => GLOBAL_PICTO_IDS.includes(b.id));
+
+    return [...globalItems, ...ownItems, ...customOwn];
+}
+
 // Initialize App
 async function init() {
     showToast("Cargando pictogramas...");
@@ -206,6 +359,7 @@ async function init() {
     }
     await loadPictograms();
     renderBoard();
+    renderBoardNav();
     
     // Load theme
     const currentTheme = localStorage.getItem('theme') || 'light';
@@ -326,32 +480,21 @@ async function loadPictograms() {
 function renderBoard() {
     boardGrid.innerHTML = '';
     
-    // Merge basic vocabulary with image overrides
-    const combinedVocabulary = basicVocabulary.map(item => {
-        const override = customPictosCache.find(p => p.id === item.id);
-        if (override) {
-            return { ...item, imageUrl: override.imageUrl, isImageOverridden: true };
-        }
-        return item;
-    });
+    let items = getItemsForBoard(currentBoardId);
     
-    // Add completely new custom cards
-    const newCustomPictos = customPictosCache.filter(p => !basicVocabulary.find(b => b.id === p.id));
-    combinedVocabulary.push(...newCustomPictos);
-    
-    // Sort combined vocabulary based on customOrder
+    // Sort by customOrder if available
     if (customOrder && customOrder.length > 0) {
-        combinedVocabulary.sort((a, b) => {
-            const indexA = customOrder.indexOf(a.id);
-            const indexB = customOrder.indexOf(b.id);
-            if (indexA === -1 && indexB === -1) return 0;
-            if (indexA === -1) return 1;
-            if (indexB === -1) return -1;
-            return indexA - indexB;
+        items = [...items].sort((a, b) => {
+            const iA = customOrder.indexOf(a.id);
+            const iB = customOrder.indexOf(b.id);
+            if (iA === -1 && iB === -1) return 0;
+            if (iA === -1) return 1;
+            if (iB === -1) return -1;
+            return iA - iB;
         });
     }
     
-    combinedVocabulary.forEach(item => {
+    items.forEach(item => {
         const isHidden = hiddenCards.has(item.id);
 
         // En modo normal, omitir las tarjetas ocultas
@@ -452,6 +595,92 @@ function renderBoard() {
         addCard.addEventListener('click', openAddPictoModal);
         boardGrid.appendChild(addCard);
     }
+}
+
+// ─── Board Navigation ──────────────────────────────────────────────────────────
+function renderBoardNav() {
+    const navEl = document.getElementById('board-nav');
+    if (!navEl) return;
+    navEl.innerHTML = '';
+
+    const boards = getAllBoards();
+
+    boards.forEach(board => {
+        const btn = document.createElement('button');
+        btn.className = 'board-tab' + (board.id === currentBoardId ? ' board-tab--active' : '');
+        btn.dataset.boardId = board.id;
+        btn.innerHTML = `<span class="board-tab-icon">${board.icon}</span><span class="board-tab-name">${board.name}</span>`;
+        btn.setAttribute('aria-label', `Tablero: ${board.name}`);
+
+        // Long press on custom boards to delete (in edit mode)
+        let longPressTimer = null;
+        const startLongPress = (e) => {
+            if (!isEditMode || board.isDefault) return;
+            longPressTimer = setTimeout(() => {
+                if (confirm(`¿Borrar el tablero "${board.name}"? Los pictos que contenga volverán al tablero Básico.`)) {
+                    deleteCustomBoard(board.id);
+                    if (currentBoardId === board.id) currentBoardId = 'basico';
+                    localStorage.setItem('current_board', currentBoardId);
+                    renderBoardNav();
+                    renderBoard();
+                    showToast(`Tablero "${board.name}" borrado`);
+                }
+            }, 800);
+        };
+        const cancelLongPress = () => clearTimeout(longPressTimer);
+
+        btn.addEventListener('mousedown', startLongPress);
+        btn.addEventListener('touchstart', startLongPress, { passive: true });
+        btn.addEventListener('mouseup', cancelLongPress);
+        btn.addEventListener('mouseleave', cancelLongPress);
+        btn.addEventListener('touchend', cancelLongPress);
+
+        btn.addEventListener('click', () => {
+            currentBoardId = board.id;
+            localStorage.setItem('current_board', currentBoardId);
+            renderBoardNav();
+            renderBoard();
+        });
+        navEl.appendChild(btn);
+    });
+
+    // "+" button to add a new board (only in edit mode)
+    if (isEditMode) {
+        const addBtn = document.createElement('button');
+        addBtn.className = 'board-tab board-tab--add';
+        addBtn.innerHTML = `<span class="board-tab-icon">➕</span><span class="board-tab-name">Nuevo</span>`;
+        addBtn.setAttribute('aria-label', 'Crear nuevo tablero');
+        addBtn.addEventListener('click', openCreateBoardModal);
+        navEl.appendChild(addBtn);
+    }
+}
+
+// ─── Create Board Modal ──────────────────────────────────────────────────────────
+function openCreateBoardModal() {
+    const modal = document.getElementById('create-board-modal');
+    if (!modal) return;
+    document.getElementById('new-board-name').value = '';
+    document.getElementById('new-board-icon').value = '📂';
+    modal.classList.add('active');
+    setTimeout(() => document.getElementById('new-board-name').focus(), 100);
+}
+
+function closeCreateBoardModal() {
+    const modal = document.getElementById('create-board-modal');
+    if (modal) modal.classList.remove('active');
+}
+
+// ─── Move Picto to Board (in editor modal) ─────────────────────────────────────────
+function populateBoardSelector() {
+    const sel = document.getElementById('picto-board-select');
+    if (!sel) return;
+    sel.innerHTML = '';
+    getAllBoards().forEach(b => {
+        const opt = document.createElement('option');
+        opt.value = b.id;
+        opt.textContent = `${b.icon} ${b.name}`;
+        sel.appendChild(opt);
+    });
 }
 
 // Add item to the phrase bar
@@ -710,7 +939,7 @@ editModeToggle.addEventListener('change', (e) => {
     if (isEditMode) {
         boardContainer.classList.add('edit-mode');
         exitEditModeContainer.style.display = 'block';
-        settingsModal.classList.remove('active'); // Close settings modal automatically
+        settingsModal.classList.remove('active');
         showToast("Modo Configuración. Arrastra las imágenes o tócalas para modificar.", 4000);
         
         // Initialize Sortable
@@ -718,11 +947,10 @@ editModeToggle.addEventListener('change', (e) => {
             animation: 150,
             ghostClass: 'sortable-ghost',
             dragClass: 'sortable-drag',
-            delay: 200, // delay in ms before drag starts
-            delayOnTouchOnly: true, // only apply delay on touch devices (allows scrolling)
-            filter: '.add-card', // Prevent dragging the add button
+            delay: 200,
+            delayOnTouchOnly: true,
+            filter: '.add-card',
             onEnd: function (evt) {
-                // Save new order
                 const items = boardGrid.querySelectorAll('.picto-card:not(.add-card)');
                 customOrder = Array.from(items).map(item => item.dataset.id).filter(id => id);
                 localStorage.setItem('board_order', JSON.stringify(customOrder));
@@ -736,7 +964,8 @@ editModeToggle.addEventListener('change', (e) => {
             sortableInstance = null;
         }
     }
-    renderBoard(); // refresh to show/hide [+] card
+    renderBoard();
+    renderBoardNav(); // Show/hide [+] button
 });
 
 btnExitEdit.addEventListener('click', () => {
@@ -744,6 +973,40 @@ btnExitEdit.addEventListener('click', () => {
     editModeToggle.dispatchEvent(new Event('change'));
     showToast("Modo edición finalizado");
 });
+
+// Event listeners for create board modal
+document.addEventListener('DOMContentLoaded', () => {});
+
+const btnSaveNewBoard = document.getElementById('btn-save-new-board');
+const btnCancelNewBoard = document.getElementById('btn-cancel-new-board');
+
+if (btnSaveNewBoard) {
+    btnSaveNewBoard.addEventListener('click', () => {
+        const nameInput = document.getElementById('new-board-name');
+        const iconInput = document.getElementById('new-board-icon');
+        const name = nameInput ? nameInput.value.trim() : '';
+        const icon = iconInput ? iconInput.value.trim() || '📂' : '📂';
+        if (!name) { showToast('Escribe un nombre para el tablero'); return; }
+        const newBoard = {
+            id: 'board_' + Date.now(),
+            name,
+            icon,
+            isDefault: false,
+            pictoRefs: []
+        };
+        saveCustomBoard(newBoard);
+        currentBoardId = newBoard.id;
+        localStorage.setItem('current_board', currentBoardId);
+        closeCreateBoardModal();
+        renderBoardNav();
+        renderBoard();
+        showToast(`Tablero "${name}" creado`);
+    });
+}
+
+if (btnCancelNewBoard) {
+    btnCancelNewBoard.addEventListener('click', closeCreateBoardModal);
+}
 
 // --- Ocultar / Mostrar tarjetas ---
 function toggleCardVisibility(id) {
@@ -776,7 +1039,7 @@ function openRecorderModal(item) {
     if (customVoicesCache[item.id]) {
         btnDeleteRec.style.display = 'block';
         recorderStatus.textContent = "Ya existe una grabación. Puedes grabarla de nuevo.";
-        recorderStatus.style.color = '#10b981'; // Green
+        recorderStatus.style.color = '#10b981';
     } else {
         btnDeleteRec.style.display = 'none';
         recorderStatus.textContent = "Pulsa Grabar cuando estés listo";
@@ -799,6 +1062,26 @@ function openRecorderModal(item) {
         btnDeletePicto.style.display = 'block';
     } else {
         btnDeletePicto.style.display = 'none';
+    }
+
+    // Board selector
+    populateBoardSelector();
+    const boardSel = document.getElementById('picto-board-select');
+    const noteEl = document.getElementById('picto-board-note');
+    if (boardSel) {
+        const isGlobal = GLOBAL_PICTO_IDS.includes(item.id);
+        if (isGlobal) {
+            boardSel.disabled = true;
+            if (noteEl) noteEl.textContent = '⚠️ Este pictograma es global y aparece en todos los tableros.';
+        } else {
+            boardSel.disabled = false;
+            if (noteEl) noteEl.textContent = '';
+            // Determine current board
+            const currentBoard = item.boardId
+                ? (pictoOverrides[item.id] || item.boardId)
+                : (item.boardId || 'basico');
+            boardSel.value = currentBoard;
+        }
     }
 
     // Rellenar campo de renombrado con el nombre actual
@@ -931,6 +1214,49 @@ btnDeleteRec.addEventListener('click', () => {
 
 btnCancelRec.addEventListener('click', closeRecorderModal);
 
+// Move picto to a different board
+const btnMovePictoBoard = document.getElementById('btn-move-picto-board');
+if (btnMovePictoBoard) {
+    btnMovePictoBoard.addEventListener('click', () => {
+        if (!currentEditItem) return;
+        const boardSel = document.getElementById('picto-board-select');
+        if (!boardSel) return;
+        const targetBoardId = boardSel.value;
+        const targetBoard = getAllBoards().find(b => b.id === targetBoardId);
+        if (!targetBoard) return;
+
+        const isBasicItem = basicVocabulary.find(b => b.id === currentEditItem.id);
+        const isCustomItem = !!currentEditItem.isCustom;
+
+        if (targetBoard.isDefault) {
+            // For predefined pictos: update override
+            // For custom pictos: update boardId in IndexedDB
+            if (isBasicItem) {
+                movePictoToBoard(currentEditItem.id, targetBoardId);
+            } else if (isCustomItem) {
+                const cached = customPictosCache.find(p => p.id === currentEditItem.id);
+                if (cached) { cached.boardId = targetBoardId; saveCustomPicto(cached); }
+            }
+        } else {
+            // Custom board: add picto to its pictoRefs
+            const board = customBoards.find(b => b.id === targetBoardId);
+            if (board) {
+                if (!board.pictoRefs) board.pictoRefs = [];
+                if (!board.pictoRefs.includes(currentEditItem.id)) {
+                    board.pictoRefs.push(currentEditItem.id);
+                    saveCustomBoard(board);
+                }
+            }
+        }
+
+        closeRecorderModal();
+        renderBoard();
+        renderBoardNav();
+        const tName = targetBoard ? targetBoard.name : targetBoardId;
+        showToast(`"${currentEditItem.word}" movido a "${tName}"`);
+    });
+}
+
 btnDeletePicto.addEventListener('click', () => {
     if (currentEditItem && currentEditItem.isCustom) {
         deleteCustomPicto(currentEditItem.id);
@@ -1027,6 +1353,19 @@ function openAddPictoModal() {
     previewPictoImg.style.display = 'none';
     btnSavePicto.disabled = true;
     currentPictoDataUrl = null;
+
+    // Populate board selector
+    const boardSel = document.getElementById('custom-picto-board');
+    if (boardSel) {
+        boardSel.innerHTML = '';
+        getAllBoards().forEach(b => {
+            const opt = document.createElement('option');
+            opt.value = b.id;
+            opt.textContent = `${b.icon} ${b.name}`;
+            if (b.id === currentBoardId) opt.selected = true;
+            boardSel.appendChild(opt);
+        });
+    }
 }
 
 function closeAddPictoModal() {
@@ -1055,21 +1394,36 @@ function checkPictoFormValid() {
 
 btnSavePicto.addEventListener('click', () => {
     const newId = 'custom_' + Date.now();
+    const boardSel = document.getElementById('custom-picto-board');
+    const targetBoardId = boardSel ? boardSel.value : currentBoardId;
+    const targetBoard = getAllBoards().find(b => b.id === targetBoardId);
+
     const pictoObj = {
         id: newId,
         word: inputPictoName.value.trim(),
-        search: '', 
-        bgColor: '#f1f5f9', // neutral fallback
-        color: '#334155', // text color
+        search: '',
+        bgColor: '#f1f5f9',
+        color: '#334155',
         icon: '📷',
-        imageUrl: currentPictoDataUrl, // base64 string
-        isCustom: true // flag to identify custom pictures
+        imageUrl: currentPictoDataUrl,
+        isCustom: true,
+        boardId: targetBoard && targetBoard.isDefault ? targetBoardId : 'basico'
     };
     saveCustomPicto(pictoObj);
+
+    // If custom board, add to pictoRefs
+    if (targetBoard && !targetBoard.isDefault) {
+        if (!targetBoard.pictoRefs) targetBoard.pictoRefs = [];
+        if (!targetBoard.pictoRefs.includes(newId)) {
+            targetBoard.pictoRefs.push(newId);
+            saveCustomBoard(targetBoard);
+        }
+    }
+
     closeAddPictoModal();
     renderBoard();
     showToast("Foto añadida correctamente");
-});
+});;
 
 btnCancelPicto.addEventListener('click', closeAddPictoModal);
 
@@ -1273,6 +1627,20 @@ function openArasaacSearchModal() {
     arasaacSearchResults.innerHTML = '';
     arasaacConfirmArea.style.display = 'none';
     selectedArasaacPicto = null;
+
+    // Populate board selector
+    const boardSel = document.getElementById('arasaac-board-select');
+    if (boardSel) {
+        boardSel.innerHTML = '';
+        getAllBoards().forEach(b => {
+            const opt = document.createElement('option');
+            opt.value = b.id;
+            opt.textContent = `${b.icon} ${b.name}`;
+            if (b.id === currentBoardId) opt.selected = true;
+            boardSel.appendChild(opt);
+        });
+    }
+
     setTimeout(() => arasaacSearchInput.focus(), 100);
 }
 
@@ -1378,6 +1746,10 @@ function confirmAddArasaacPicto() {
         return;
     }
 
+    const boardSel = document.getElementById('arasaac-board-select');
+    const targetBoardId = boardSel ? boardSel.value : currentBoardId;
+    const targetBoard = getAllBoards().find(b => b.id === targetBoardId);
+
     const newId = 'arasaac_' + selectedArasaacPicto.id + '_' + Date.now();
     const pictoObj = {
         id: newId,
@@ -1387,10 +1759,21 @@ function confirmAddArasaacPicto() {
         color: '#334155',
         icon: '🖼️',
         imageUrl: selectedArasaacPicto.imageUrl,
-        isCustom: true
+        isCustom: true,
+        boardId: targetBoard && targetBoard.isDefault ? targetBoardId : 'basico'
     };
 
     saveCustomPicto(pictoObj);
+
+    // If custom board, add to pictoRefs
+    if (targetBoard && !targetBoard.isDefault) {
+        if (!targetBoard.pictoRefs) targetBoard.pictoRefs = [];
+        if (!targetBoard.pictoRefs.includes(newId)) {
+            targetBoard.pictoRefs.push(newId);
+            saveCustomBoard(targetBoard);
+        }
+    }
+
     closeArasaacSearchModal();
     renderBoard();
     showToast(`"${word}" añadido al tablero`);
@@ -1558,5 +1941,18 @@ if (importConfigFile) {
             importConfiguration(file);
             e.target.value = ''; // reset para permitir importar el mismo archivo de nuevo
         }
+    });
+}
+
+// PWA Service Worker Registration
+if ('serviceWorker' in navigator) {
+    window.addEventListener('load', () => {
+        navigator.serviceWorker.register('./sw.js')
+            .then(registration => {
+                console.log('[Service Worker] Registered with scope:', registration.scope);
+            })
+            .catch(error => {
+                console.error('[Service Worker] Registration failed:', error);
+            });
     });
 }

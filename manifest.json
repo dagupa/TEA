@@ -1,0 +1,17 @@
+{
+  "name": "Comunicador TEA",
+  "short_name": "TEA",
+  "description": "Tablero de comunicación aumentativa y alternativa con pictogramas ARASAAC.",
+  "start_url": "./index.html",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#ffffff",
+  "icons": [
+    {
+      "src": "./Logo/logo-claro.png",
+      "type": "image/png",
+      "sizes": "192x192 512x512",
+      "purpose": "any maskable"
+    }
+  ]
+}
