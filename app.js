@@ -13,76 +13,76 @@ const defaultBoards = [
 
 const basicVocabulary = [
   // Globales / Básico (Azul/Rosa) - 10 elementos
-  { id: 'quiero', word: 'Quiero',       search: 'quiero', boardId: 'basico',      bgColor: '#dce7f5', color: '#1d4ed8', icon: '✋' },
-  { id: 'si',     word: 'Sí',           search: 'si',     boardId: 'basico',      bgColor: '#fce7f3', color: '#be185d', icon: '✅' },
-  { id: 'no',     word: 'No',           search: 'no',     boardId: 'basico',      bgColor: '#fce7f3', color: '#be185d', icon: '❌' },
-  { id: 'ayuda',  word: 'Ayuda',        search: 'ayudar', boardId: 'basico',      bgColor: '#dce7f5', color: '#1d4ed8', icon: '🆘' },
-  { id: 'mas',    word: 'Más',          search: 'mas',    boardId: 'basico',      bgColor: '#dce7f5', color: '#1d4ed8', icon: '➕' },
-  { id: 'ya_esta',word: 'Ya está',      search: 'terminar',boardId: 'basico',     bgColor: '#dce7f5', color: '#1d4ed8', icon: '🏁' },
-  { id: 'bien',   word: 'Bien',         search: 'bien',   boardId: 'basico',      bgColor: '#fce7f3', color: '#be185d', icon: '👍' },
-  { id: 'mal',    word: 'Mal',          search: 'mal',    boardId: 'basico',      bgColor: '#fce7f3', color: '#be185d', icon: '👎' },
-  { id: 'por_favor',word: 'Por favor',  search: 'por favor',boardId: 'basico',    bgColor: '#fce7f3', color: '#be185d', icon: '🙏' },
-  { id: 'gracias',word: 'Gracias',      search: 'gracias',boardId: 'basico',      bgColor: '#fce7f3', color: '#be185d', icon: '🙌' },
+  { id: 'quiero', word: 'Quiero',       search: 'quiero', boardId: 'basico',      bgColor: '#dce7f5', color: '#1d4ed8', icon: '✋', fitzCategory: 'verb' },
+  { id: 'si',     word: 'Sí',           search: 'si',     boardId: 'basico',      bgColor: '#fce7f3', color: '#be185d', icon: '✅', fitzCategory: 'social' },
+  { id: 'no',     word: 'No',           search: 'no',     boardId: 'basico',      bgColor: '#fce7f3', color: '#be185d', icon: '❌', fitzCategory: 'social' },
+  { id: 'ayuda',  word: 'Ayuda',        search: 'ayudar', boardId: 'basico',      bgColor: '#dce7f5', color: '#1d4ed8', icon: '🆘', fitzCategory: 'verb' },
+  { id: 'mas',    word: 'Más',          search: 'mas',    boardId: 'basico',      bgColor: '#dce7f5', color: '#1d4ed8', icon: '➕', fitzCategory: 'social' },
+  { id: 'ya_esta',word: 'Ya está',      search: 'terminar',boardId: 'basico',     bgColor: '#dce7f5', color: '#1d4ed8', icon: '🏁', fitzCategory: 'social' },
+  { id: 'bien',   word: 'Bien',         search: 'bien',   boardId: 'basico',      bgColor: '#fce7f3', color: '#be185d', icon: '👍', fitzCategory: 'adjective' },
+  { id: 'mal',    word: 'Mal',          search: 'mal',    boardId: 'basico',      bgColor: '#fce7f3', color: '#be185d', icon: '👎', fitzCategory: 'adjective' },
+  { id: 'por_favor',word: 'Por favor',  search: 'por favor',boardId: 'basico',    bgColor: '#fce7f3', color: '#be185d', icon: '🙏', fitzCategory: 'social' },
+  { id: 'gracias',word: 'Gracias',      search: 'gracias',boardId: 'basico',      bgColor: '#fce7f3', color: '#be185d', icon: '🙌', fitzCategory: 'social' },
   
   // Comida y Bebida (Naranja: bgColor: '#ffedd5', color: '#c2410c') - 10 elementos
-  { id: 'comer',  word: 'Comer',        search: 'comer',  boardId: 'comida',      bgColor: '#ffedd5', color: '#c2410c', icon: '🍽️' },
-  { id: 'beber',  word: 'Beber',        search: 'beber',  boardId: 'comida',      bgColor: '#ffedd5', color: '#c2410c', icon: '💧' },
-  { id: 'agua',   word: 'Agua',         search: 'agua',   boardId: 'comida',      bgColor: '#ffedd5', color: '#c2410c', icon: '🥛' },
-  { id: 'zumo',   word: 'Zumo',         search: 'zumo',   boardId: 'comida',      bgColor: '#ffedd5', color: '#c2410c', icon: '🧃' },
-  { id: 'leche',  word: 'Leche',        search: 'leche',  boardId: 'comida',      bgColor: '#ffedd5', color: '#c2410c', icon: '🍼' },
-  { id: 'pan',    word: 'Pan',          search: 'pan',    boardId: 'comida',      bgColor: '#ffedd5', color: '#c2410c', icon: '🥖' },
-  { id: 'galleta',word: 'Galleta',      search: 'galleta',boardId: 'comida',      bgColor: '#ffedd5', color: '#c2410c', icon: '🍪' },
-  { id: 'fruta',  word: 'Fruta',        search: 'fruta',  boardId: 'comida',      bgColor: '#ffedd5', color: '#c2410c', icon: '🍎' },
-  { id: 'carne',  word: 'Carne',        search: 'carne',  boardId: 'comida',      bgColor: '#ffedd5', color: '#c2410c', icon: '🥩' },
-  { id: 'pescado',word: 'Pescado',      search: 'pescado',boardId: 'comida',      bgColor: '#ffedd5', color: '#c2410c', icon: '🐟' },
+  { id: 'comer',  word: 'Comer',        search: 'comer',  boardId: 'comida',      bgColor: '#ffedd5', color: '#c2410c', icon: '🍽️', fitzCategory: 'verb' },
+  { id: 'beber',  word: 'Beber',        search: 'beber',  boardId: 'comida',      bgColor: '#ffedd5', color: '#c2410c', icon: '💧', fitzCategory: 'verb' },
+  { id: 'agua',   word: 'Agua',         search: 'agua',   boardId: 'comida',      bgColor: '#ffedd5', color: '#c2410c', icon: '🥛', fitzCategory: 'noun' },
+  { id: 'zumo',   word: 'Zumo',         search: 'zumo',   boardId: 'comida',      bgColor: '#ffedd5', color: '#c2410c', icon: '🧃', fitzCategory: 'noun' },
+  { id: 'leche',  word: 'Leche',        search: 'leche',  boardId: 'comida',      bgColor: '#ffedd5', color: '#c2410c', icon: '🍼', fitzCategory: 'noun' },
+  { id: 'pan',    word: 'Pan',          search: 'pan',    boardId: 'comida',      bgColor: '#ffedd5', color: '#c2410c', icon: '🥖', fitzCategory: 'noun' },
+  { id: 'galleta',word: 'Galleta',      search: 'galleta',boardId: 'comida',      bgColor: '#ffedd5', color: '#c2410c', icon: '🍪', fitzCategory: 'noun' },
+  { id: 'fruta',  word: 'Fruta',        search: 'fruta',  boardId: 'comida',      bgColor: '#ffedd5', color: '#c2410c', icon: '🍎', fitzCategory: 'noun' },
+  { id: 'carne',  word: 'Carne',        search: 'carne',  boardId: 'comida',      bgColor: '#ffedd5', color: '#c2410c', icon: '🥩', fitzCategory: 'noun' },
+  { id: 'pescado',word: 'Pescado',      search: 'pescado',boardId: 'comida',      bgColor: '#ffedd5', color: '#c2410c', icon: '🐟', fitzCategory: 'noun' },
 
   // Actividades (Azul: bgColor: '#dce7f5', color: '#1d4ed8') - 10 elementos
-  { id: 'jugar',  word: 'Jugar',        search: 'jugar',  boardId: 'actividades', bgColor: '#dce7f5', color: '#1d4ed8', icon: '🧸' },
-  { id: 'dormir', word: 'Dormir',       search: 'dormir', boardId: 'actividades', bgColor: '#dce7f5', color: '#1d4ed8', icon: '🛏️' },
-  { id: 'pintar', word: 'Pintar',       search: 'pintar', boardId: 'actividades', bgColor: '#dce7f5', color: '#1d4ed8', icon: '🎨' },
-  { id: 'leer',   word: 'Leer',         search: 'leer',   boardId: 'actividades', bgColor: '#dce7f5', color: '#1d4ed8', icon: '📚' },
-  { id: 'tele',   word: 'Ver la tele',  search: 'television',boardId: 'actividades',bgColor: '#dce7f5', color: '#1d4ed8', icon: '📺' },
-  { id: 'pasear', word: 'Pasear',       search: 'pasear', boardId: 'actividades', bgColor: '#dce7f5', color: '#1d4ed8', icon: '🚶' },
-  { id: 'banarse',word: 'Bañarse',      search: 'bañar',  boardId: 'actividades', bgColor: '#dce7f5', color: '#1d4ed8', icon: '🛁' },
-  { id: 'saltar', word: 'Saltar',       search: 'saltar', boardId: 'actividades', bgColor: '#dce7f5', color: '#1d4ed8', icon: '🦘' },
-  { id: 'correr', word: 'Correr',       search: 'correr', boardId: 'actividades', bgColor: '#dce7f5', color: '#1d4ed8', icon: '🏃' },
-  { id: 'bailar', word: 'Bailar',       search: 'bailar', boardId: 'actividades', bgColor: '#dce7f5', color: '#1d4ed8', icon: '💃' },
+  { id: 'jugar',  word: 'Jugar',        search: 'jugar',  boardId: 'actividades', bgColor: '#dce7f5', color: '#1d4ed8', icon: '🧸', fitzCategory: 'verb' },
+  { id: 'dormir', word: 'Dormir',       search: 'dormir', boardId: 'actividades', bgColor: '#dce7f5', color: '#1d4ed8', icon: '🛏️', fitzCategory: 'verb' },
+  { id: 'pintar', word: 'Pintar',       search: 'pintar', boardId: 'actividades', bgColor: '#dce7f5', color: '#1d4ed8', icon: '🎨', fitzCategory: 'verb' },
+  { id: 'leer',   word: 'Leer',         search: 'leer',   boardId: 'actividades', bgColor: '#dce7f5', color: '#1d4ed8', icon: '📚', fitzCategory: 'verb' },
+  { id: 'tele',   word: 'Ver la tele',  search: 'television',boardId: 'actividades',bgColor: '#dce7f5', color: '#1d4ed8', icon: '📺', fitzCategory: 'verb' },
+  { id: 'pasear', word: 'Pasear',       search: 'pasear', boardId: 'actividades', bgColor: '#dce7f5', color: '#1d4ed8', icon: '🚶', fitzCategory: 'verb' },
+  { id: 'banarse',word: 'Bañarse',      search: 'bañar',  boardId: 'actividades', bgColor: '#dce7f5', color: '#1d4ed8', icon: '🛁', fitzCategory: 'verb' },
+  { id: 'saltar', word: 'Saltar',       search: 'saltar', boardId: 'actividades', bgColor: '#dce7f5', color: '#1d4ed8', icon: '🦘', fitzCategory: 'verb' },
+  { id: 'correr', word: 'Correr',       search: 'correr', boardId: 'actividades', bgColor: '#dce7f5', color: '#1d4ed8', icon: '🏃', fitzCategory: 'verb' },
+  { id: 'bailar', word: 'Bailar',       search: 'bailar', boardId: 'actividades', bgColor: '#dce7f5', color: '#1d4ed8', icon: '💃', fitzCategory: 'verb' },
 
   // Lugares (Verde: bgColor: '#dcfce7', color: '#15803d') - 10 elementos
-  { id: 'bano',   word: 'Ir al baño',   search: 'baño',   boardId: 'lugares',     bgColor: '#dcfce7', color: '#15803d', icon: '🚽' },
-  { id: 'calle',  word: 'Ir a la calle',search: 'calle',  boardId: 'lugares',     bgColor: '#dcfce7', color: '#15803d', icon: '🌳' },
-  { id: 'casa',   word: 'Ir a casa',    search: 'casa',   boardId: 'lugares',     bgColor: '#dcfce7', color: '#15803d', icon: '🏠' },
-  { id: 'colegio',word: 'Colegio',      search: 'colegio',boardId: 'lugares',     bgColor: '#dcfce7', color: '#15803d', icon: '🏫' },
-  { id: 'parque', word: 'Parque',       search: 'parque', boardId: 'lugares',     bgColor: '#dcfce7', color: '#15803d', icon: '🛝' },
-  { id: 'coche',  word: 'Coche',        search: 'coche',  boardId: 'lugares',     bgColor: '#dcfce7', color: '#15803d', icon: '🚗' },
-  { id: 'tienda', word: 'Tienda',       search: 'tienda', boardId: 'lugares',     bgColor: '#dcfce7', color: '#15803d', icon: '🛒' },
-  { id: 'piscina',word: 'Piscina',      search: 'piscina',boardId: 'lugares',     bgColor: '#dcfce7', color: '#15803d', icon: '🏊' },
-  { id: 'playa',  word: 'Playa',        search: 'playa',  boardId: 'lugares',     bgColor: '#dcfce7', color: '#15803d', icon: '🏖️' },
+  { id: 'bano',   word: 'Ir al baño',   search: 'baño',   boardId: 'lugares',     bgColor: '#dcfce7', color: '#15803d', icon: '🚽', fitzCategory: 'noun' },
+  { id: 'calle',  word: 'Ir a la calle',search: 'calle',  boardId: 'lugares',     bgColor: '#dcfce7', color: '#15803d', icon: '🌳', fitzCategory: 'noun' },
+  { id: 'casa',   word: 'Ir a casa',    search: 'casa',   boardId: 'lugares',     bgColor: '#dcfce7', color: '#15803d', icon: '🏠', fitzCategory: 'noun' },
+  { id: 'colegio',word: 'Colegio',      search: 'colegio',boardId: 'lugares',     bgColor: '#dcfce7', color: '#15803d', icon: '🏫', fitzCategory: 'noun' },
+  { id: 'parque', word: 'Parque',       search: 'parque', boardId: 'lugares',     bgColor: '#dcfce7', color: '#15803d', icon: '🛝', fitzCategory: 'noun' },
+  { id: 'coche',  word: 'Coche',        search: 'coche',  boardId: 'lugares',     bgColor: '#dcfce7', color: '#15803d', icon: '🚗', fitzCategory: 'noun' },
+  { id: 'tienda', word: 'Tienda',       search: 'tienda', boardId: 'lugares',     bgColor: '#dcfce7', color: '#15803d', icon: '🛒', fitzCategory: 'noun' },
+  { id: 'piscina',word: 'Piscina',      search: 'piscina',boardId: 'lugares',     bgColor: '#dcfce7', color: '#15803d', icon: '🏊', fitzCategory: 'noun' },
+  { id: 'playa',  word: 'Playa',        search: 'playa',  boardId: 'lugares',     bgColor: '#dcfce7', color: '#15803d', icon: '🏖️', fitzCategory: 'noun' },
   { id: 'hospital',word:'Hospital',     search: 'hospital',boardId: 'lugares',    bgColor: '#dcfce7', color: '#15803d', icon: '🏥' },
 
   // Sensaciones (Morado: bgColor: '#f3e8ff', color: '#7e22ce') - 10 elementos
-  { id: 'duele',  word: 'Me duele',     search: 'doler',  boardId: 'sensaciones', bgColor: '#f3e8ff', color: '#7e22ce', icon: '🤕' },
-  { id: 'frio',   word: 'Tengo frío',   search: 'frio',   boardId: 'sensaciones', bgColor: '#f3e8ff', color: '#7e22ce', icon: '🥶' },
-  { id: 'calor',  word: 'Tengo calor',  search: 'calor',  boardId: 'sensaciones', bgColor: '#f3e8ff', color: '#7e22ce', icon: '🥵' },
-  { id: 'cansado',word: 'Cansado',      search: 'cansado',boardId: 'sensaciones', bgColor: '#f3e8ff', color: '#7e22ce', icon: '🥱' },
-  { id: 'enfermo',word: 'Enfermo',      search: 'enfermo',boardId: 'sensaciones', bgColor: '#f3e8ff', color: '#7e22ce', icon: '🤒' },
-  { id: 'feliz',  word: 'Feliz',        search: 'feliz',  boardId: 'sensaciones', bgColor: '#f3e8ff', color: '#7e22ce', icon: '😀' },
-  { id: 'triste', word: 'Triste',       search: 'triste', boardId: 'sensaciones', bgColor: '#f3e8ff', color: '#7e22ce', icon: '😢' },
-  { id: 'enfadado',word:'Enfadado',     search: 'enfadado',boardId: 'sensaciones',bgColor: '#f3e8ff', color: '#7e22ce', icon: '😠' },
-  { id: 'miedo',  word: 'Miedo',        search: 'miedo',  boardId: 'sensaciones', bgColor: '#f3e8ff', color: '#7e22ce', icon: '😨' },
-  { id: 'aburrido',word:'Aburrido',     search: 'aburrido',boardId: 'sensaciones',bgColor: '#f3e8ff', color: '#7e22ce', icon: '😒' },
+  { id: 'duele',  word: 'Me duele',     search: 'doler',  boardId: 'sensaciones', bgColor: '#f3e8ff', color: '#7e22ce', icon: '🤕', fitzCategory: 'adjective' },
+  { id: 'frio',   word: 'Tengo frío',   search: 'frio',   boardId: 'sensaciones', bgColor: '#f3e8ff', color: '#7e22ce', icon: '🥶', fitzCategory: 'adjective' },
+  { id: 'calor',  word: 'Tengo calor',  search: 'calor',  boardId: 'sensaciones', bgColor: '#f3e8ff', color: '#7e22ce', icon: '🥵', fitzCategory: 'adjective' },
+  { id: 'cansado',word: 'Cansado',      search: 'cansado',boardId: 'sensaciones', bgColor: '#f3e8ff', color: '#7e22ce', icon: '🥱', fitzCategory: 'adjective' },
+  { id: 'enfermo',word: 'Enfermo',      search: 'enfermo',boardId: 'sensaciones', bgColor: '#f3e8ff', color: '#7e22ce', icon: '🤒', fitzCategory: 'adjective' },
+  { id: 'feliz',  word: 'Feliz',        search: 'feliz',  boardId: 'sensaciones', bgColor: '#f3e8ff', color: '#7e22ce', icon: '😀', fitzCategory: 'adjective' },
+  { id: 'triste', word: 'Triste',       search: 'triste', boardId: 'sensaciones', bgColor: '#f3e8ff', color: '#7e22ce', icon: '😢', fitzCategory: 'adjective' },
+  { id: 'enfadado',word:'Enfadado',     search: 'enfadado',boardId: 'sensaciones',bgColor: '#f3e8ff', color: '#7e22ce', icon: '😠', fitzCategory: 'adjective' },
+  { id: 'miedo',  word: 'Miedo',        search: 'miedo',  boardId: 'sensaciones', bgColor: '#f3e8ff', color: '#7e22ce', icon: '😨', fitzCategory: 'adjective' },
+  { id: 'aburrido',word:'Aburrido',     search: 'aburrido',boardId: 'sensaciones',bgColor: '#f3e8ff', color: '#7e22ce', icon: '😒', fitzCategory: 'adjective' },
 
   // Personas (Amarillo: bgColor: '#fef9c3', color: '#a16207') - 10 elementos
-  { id: 'yo',     word: 'Yo',           search: 'yo',     boardId: 'personas',    bgColor: '#fef9c3', color: '#a16207', icon: '🧑' },
-  { id: 'tu',     word: 'Tú',           search: 'tu',     boardId: 'personas',    bgColor: '#fef9c3', color: '#a16207', icon: '👉' },
-  { id: 'mama',   word: 'Mamá',         search: 'mama',   boardId: 'personas',    bgColor: '#fef9c3', color: '#a16207', icon: '👩' },
-  { id: 'papa',   word: 'Papá',         search: 'papa',   boardId: 'personas',    bgColor: '#fef9c3', color: '#a16207', icon: '👨' },
-  { id: 'abuelo', word: 'Abuelo',       search: 'abuelo', boardId: 'personas',    bgColor: '#fef9c3', color: '#a16207', icon: '👴' },
-  { id: 'abuela', word: 'Abuela',       search: 'abuela', boardId: 'personas',    bgColor: '#fef9c3', color: '#a16207', icon: '👵' },
-  { id: 'hermano',word: 'Hermano',      search: 'hermano',boardId: 'personas',    bgColor: '#fef9c3', color: '#a16207', icon: '👦' },
-  { id: 'amigo',  word: 'Amigo',        search: 'amigo',  boardId: 'personas',    bgColor: '#fef9c3', color: '#a16207', icon: '🫂' },
-  { id: 'profesor',word:'Profesor',     search: 'profesor',boardId: 'personas',   bgColor: '#fef9c3', color: '#a16207', icon: '👩‍🏫' },
-  { id: 'medico', word: 'Médico',       search: 'medico', boardId: 'personas',    bgColor: '#fef9c3', color: '#a16207', icon: '👨‍⚕️' }
+  { id: 'yo',     word: 'Yo',           search: 'yo',     boardId: 'personas',    bgColor: '#fef9c3', color: '#a16207', icon: '🧑', fitzCategory: 'person' },
+  { id: 'tu',     word: 'Tú',           search: 'tu',     boardId: 'personas',    bgColor: '#fef9c3', color: '#a16207', icon: '👉', fitzCategory: 'person' },
+  { id: 'mama',   word: 'Mamá',         search: 'mama',   boardId: 'personas',    bgColor: '#fef9c3', color: '#a16207', icon: '👩', fitzCategory: 'person' },
+  { id: 'papa',   word: 'Papá',         search: 'papa',   boardId: 'personas',    bgColor: '#fef9c3', color: '#a16207', icon: '👨', fitzCategory: 'person' },
+  { id: 'abuelo', word: 'Abuelo',       search: 'abuelo', boardId: 'personas',    bgColor: '#fef9c3', color: '#a16207', icon: '👴', fitzCategory: 'person' },
+  { id: 'abuela', word: 'Abuela',       search: 'abuela', boardId: 'personas',    bgColor: '#fef9c3', color: '#a16207', icon: '👵', fitzCategory: 'person' },
+  { id: 'hermano',word: 'Hermano',      search: 'hermano',boardId: 'personas',    bgColor: '#fef9c3', color: '#a16207', icon: '👦', fitzCategory: 'person' },
+  { id: 'amigo',  word: 'Amigo',        search: 'amigo',  boardId: 'personas',    bgColor: '#fef9c3', color: '#a16207', icon: '🫂', fitzCategory: 'person' },
+  { id: 'profesor',word:'Profesor',     search: 'profesor',boardId: 'personas',   bgColor: '#fef9c3', color: '#a16207', icon: '👩‍🏫', fitzCategory: 'person' },
+  { id: 'medico', word: 'Médico',       search: 'medico', boardId: 'personas',    bgColor: '#fef9c3', color: '#a16207', icon: '👨‍⚕️', fitzCategory: 'person' }
 ];
 
 // DOM Elements
@@ -107,6 +107,14 @@ const settingsModal = document.getElementById('settings-modal');
 const btnCloseSettings = document.getElementById('btn-close-settings');
 const btnChangePin = document.getElementById('btn-change-pin');
 const themeToggle = document.getElementById('theme-toggle');
+const fitzgeraldToggle = document.getElementById('fitzgerald-toggle');
+
+const customPictoFitz = document.getElementById('custom-picto-fitz');
+const arasaacConfirmFitz = document.getElementById('arasaac-confirm-fitz');
+
+// State
+let isDarkMode = localStorage.getItem('theme') === 'dark';
+let useFitzgeraldColors = localStorage.getItem('useFitzgeraldColors') === 'true';
 
 const pinModal = document.getElementById('pin-modal');
 const pinTitle = document.getElementById('pin-title');
@@ -367,6 +375,14 @@ async function init() {
         document.documentElement.setAttribute('data-theme', 'dark');
         themeToggle.checked = true;
     }
+    
+    // Load Fitzgerald settings
+    if (fitzgeraldToggle) {
+        fitzgeraldToggle.checked = useFitzgeraldColors;
+        document.querySelectorAll('.fitz-select-group').forEach(el => {
+            el.style.display = useFitzgeraldColors ? 'block' : 'none';
+        });
+    }
 
     // Load icon size
     const currentIconSize = localStorage.getItem('icon_size') || 'normal';
@@ -503,7 +519,16 @@ function renderBoard() {
         const card = document.createElement('div');
         card.className = 'picto-card';
         card.dataset.id = item.id;
-        card.style.borderColor = item.color;
+        
+        let currentBgColor = item.bgColor;
+        let currentBorderColor = item.color;
+        
+        if (useFitzgeraldColors && item.fitzCategory) {
+            currentBgColor = `var(--fitz-${item.fitzCategory}-bg, ${item.bgColor})`;
+            currentBorderColor = `var(--fitz-${item.fitzCategory}-text, ${item.color})`;
+        }
+
+        card.style.borderColor = currentBorderColor;
 
         // En modo edición, aplicar opacidad a las ocultas
         if (isEditMode && isHidden) {
@@ -513,7 +538,7 @@ function renderBoard() {
         // Image or Fallback container
         const imgContainer = document.createElement('div');
         imgContainer.className = 'picto-image-container';
-        imgContainer.style.backgroundColor = item.bgColor;
+        imgContainer.style.backgroundColor = currentBgColor;
 
         if (item.imageUrl) {
             const img = document.createElement('img');
@@ -809,6 +834,17 @@ themeToggle.addEventListener('change', (e) => {
         localStorage.setItem('theme', 'light');
     }
 });
+
+if (fitzgeraldToggle) {
+    fitzgeraldToggle.addEventListener('change', (e) => {
+        useFitzgeraldColors = e.target.checked;
+        localStorage.setItem('useFitzgeraldColors', useFitzgeraldColors);
+        document.querySelectorAll('.fitz-select-group').forEach(el => {
+            el.style.display = useFitzgeraldColors ? 'block' : 'none';
+        });
+        renderBoard(); // Re-render to apply or remove colors
+    });
+}
 
 if (iconSizeSelect) {
     iconSizeSelect.addEventListener('change', (e) => {
@@ -1407,6 +1443,7 @@ btnSavePicto.addEventListener('click', () => {
         icon: '📷',
         imageUrl: currentPictoDataUrl,
         isCustom: true,
+        fitzCategory: customPictoFitz ? customPictoFitz.value : 'noun',
         boardId: targetBoard && targetBoard.isDefault ? targetBoardId : 'basico'
     };
     saveCustomPicto(pictoObj);
@@ -1760,6 +1797,7 @@ function confirmAddArasaacPicto() {
         icon: '🖼️',
         imageUrl: selectedArasaacPicto.imageUrl,
         isCustom: true,
+        fitzCategory: arasaacConfirmFitz ? arasaacConfirmFitz.value : 'noun',
         boardId: targetBoard && targetBoard.isDefault ? targetBoardId : 'basico'
     };
 

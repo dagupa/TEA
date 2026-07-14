@@ -1,0 +1,19 @@
+
+---
+Fecha: 2026-07-14 18:48:58
+Prompt: dame 10 propuestas de mejora para implementar
+Solución: Se elaboró un listado de 10 mejoras enfocadas en accesibilidad, personalización y funcionalidad para aplicaciones SAAC orientadas a TEA.
+
+
+---
+Fecha: 2026-07-14 18:54:01
+Prompt: La mejora dos creo que ya la tenemos implementada, compruébalo
+Solución: Se verificó en el código (app.js e index.html) que efectivamente la funcionalidad de subir imágenes propias ya existe en el modo edición (override-picto-file). Se le dio la razón al usuario.
+
+
+---
+Fecha: 2026-07-14 18:56:12
+Prompt: implementa la pción 7
+Solución: Se procedió a elaborar un plan de implementación para la adaptación al Código de Color de Fitzgerald, añadiendo un ajuste global en la configuración y definiendo la lógica para asignar los colores según el tipo de palabra (sujeto, verbo, nombre, etc.).
+
+Se ha completado la implementacin de los colores de Fitzgerald en la UI, app.js y styles.css, aadiendo un toggle en configuracin y asignando la categora Fitzgerald por defecto a todo el vocabulario existente, as como a los nuevos pictogramas que se aadan.

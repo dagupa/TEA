@@ -100,6 +100,13 @@
                 </select>
             </div>
             <div class="form-group" style="display: flex; justify-content: space-between; align-items: center; background: transparent; padding: 1rem; border-radius: var(--border-radius-sm);">
+                <label style="margin:0; display: flex; align-items: center; gap: 0.5rem; color: var(--text-primary);">🎨 Código Fitzgerald</label>
+                <label class="switch">
+                    <input type="checkbox" id="fitzgerald-toggle">
+                    <span class="slider round"></span>
+                </label>
+            </div>
+            <div class="form-group" style="display: flex; justify-content: space-between; align-items: center; background: transparent; padding: 1rem; border-radius: var(--border-radius-sm);">
                 <label style="margin:0; display: flex; align-items: center; gap: 0.5rem;" class="theme-label-text">
                     <span class="theme-text-light">🌙 Modo oscuro</span>
                     <span class="theme-text-dark">☀️ Modo claro</span>
@@ -266,6 +273,16 @@
                 <label for="custom-picto-board">Añadir al tablero:</label>
                 <select id="custom-picto-board" class="voice-select" style="width:100%; max-width: none;" aria-label="Tablero destino"></select>
             </div>
+            <div class="form-group fitz-select-group" style="display: none;">
+                <label for="custom-picto-fitz">Tipo de palabra (Fitzgerald):</label>
+                <select id="custom-picto-fitz" class="voice-select" style="width:100%; max-width: none;">
+                    <option value="person">Persona / Pronombre (Amarillo)</option>
+                    <option value="verb">Verbo / Acción (Verde)</option>
+                    <option value="noun" selected>Sustantivo / Objeto (Naranja)</option>
+                    <option value="adjective">Descriptivo / Sensación (Azul)</option>
+                    <option value="social">Social / Cortesía (Rosa)</option>
+                </select>
+            </div>
             <div class="form-group">
                 <label for="custom-picto-file">Seleccionar foto:</label>
                 <input type="file" id="custom-picto-file" accept="image/*">
@@ -379,9 +396,19 @@
             <div id="arasaac-search-results" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(110px, 1fr)); gap: 0.75rem; overflow-y: auto; flex: 1; padding-right: 4px;"></div>
             <div id="arasaac-confirm-area" style="display: none; border-top: 1px solid var(--border-color); padding-top: 1rem; margin-top: 1rem;">
                 <p style="margin-bottom: 0.5rem; color: var(--text-primary); font-weight: 600;">Nombre para la tarjeta:</p>
-                <div style="display: flex; gap: 0.5rem;">
+                <div style="display: flex; gap: 0.5rem; margin-bottom: 0.5rem;">
                     <input type="text" id="arasaac-confirm-name" placeholder="Nombre..." maxlength="30" style="flex: 1; padding: 0.65rem 1rem; border: 2px solid var(--border-color); border-radius: var(--border-radius-sm); background: var(--bg-color); color: var(--text-primary); font-size: 1rem; font-family: inherit;" aria-label="Nombre de la tarjeta">
                     <button id="btn-arasaac-confirm-add" class="btn btn-save" style="padding: 0 1.25rem;" aria-label="Añadir al tablero">Añadir</button>
+                </div>
+                <div class="fitz-select-group" style="display: none; margin-bottom: 0.5rem;">
+                    <label for="arasaac-confirm-fitz" style="display: block; margin-bottom: 0.25rem; font-size: 0.9rem;">Tipo de palabra (Fitzgerald):</label>
+                    <select id="arasaac-confirm-fitz" class="voice-select" style="width:100%; max-width: none;">
+                        <option value="person">Persona / Pronombre (Amarillo)</option>
+                        <option value="verb">Verbo / Acción (Verde)</option>
+                        <option value="noun" selected>Sustantivo / Objeto (Naranja)</option>
+                        <option value="adjective">Descriptivo / Sensación (Azul)</option>
+                        <option value="social">Social / Cortesía (Rosa)</option>
+                    </select>
                 </div>
             </div>
         </div>

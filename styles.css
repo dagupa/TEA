@@ -10,6 +10,20 @@
     --border-radius-md: 16px;
     --border-radius-sm: 12px;
     --transition: background-color 0.3s, color 0.3s, border-color 0.3s, transform 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    
+    /* Fitzgerald Color Code Variables */
+    --fitz-person-bg: #fef08a; /* Yellow */
+    --fitz-person-text: #854d0e;
+    --fitz-verb-bg: #bbf7d0; /* Green */
+    --fitz-verb-text: #166534;
+    --fitz-noun-bg: #fed7aa; /* Orange */
+    --fitz-noun-text: #9a3412;
+    --fitz-adjective-bg: #bfdbfe; /* Blue */
+    --fitz-adjective-text: #1e3a8a;
+    --fitz-social-bg: #fbcfe8; /* Pink */
+    --fitz-social-text: #831843;
+    --fitz-misc-bg: #e2e8f0; /* Gray */
+    --fitz-misc-text: #334155;
 }
 
 [data-theme="dark"] {
@@ -452,9 +466,9 @@ input:checked+.slider:before {
 .voice-select {
     padding: 0.5rem;
     border-radius: var(--border-radius-sm);
-    border: 1px solid #cbd5e1;
+    border: 1px solid var(--border-color);
     font-family: inherit;
-    background: white;
+    background: var(--card-bg);
     color: var(--text-primary);
     cursor: pointer;
     font-size: 0.9rem;
@@ -607,25 +621,6 @@ input:checked+.slider:before {
 
 .form-group label {
     display: block;
-    font-weight: 700;
-    margin-bottom: 0.5rem;
-    color: var(--text-primary);
-}
-
-.form-group input[type="text"],
-.form-group input[type="password"] {
-    width: 100%;
-    padding: 0.75rem;
-    border-radius: var(--border-radius-sm);
-    border: 1px solid #cbd5e1;
-    font-family: inherit;
-    font-size: 1rem;
-    box-sizing: border-box;
-}
-
-.form-group input[type="file"] {
-    width: 100%;
-    padding: 0.5rem 0;
 }
 
 @keyframes pulse {
@@ -847,7 +842,9 @@ input:checked+.slider:before {
     width: 100%;
     padding: 0.75rem;
     border-radius: var(--border-radius-sm);
-    border: 1px solid #cbd5e1;
+    border: 1px solid var(--border-color);
+    background: var(--card-bg);
+    color: var(--text-primary);
     font-family: inherit;
     font-size: 1rem;
     box-sizing: border-box;
@@ -1061,4 +1058,28 @@ input:checked+.slider:before {
 .card-visibility-btn:hover {
     background-color: rgba(0, 0, 0, 0.8);
     transform: scale(1.15);
+}
+.form-group label {
+    display: block;
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+    color: var(--text-primary);
+}
+
+.form-group input[type="text"],
+.form-group input[type="password"] {
+    width: 100%;
+    padding: 0.75rem;
+    border-radius: var(--border-radius-sm);
+    border: 1px solid var(--border-color);
+    background: var(--card-bg);
+    color: var(--text-primary);
+    font-family: inherit;
+    font-size: 1rem;
+    box-sizing: border-box;
+}
+
+.form-group input[type="file"] {
+    width: 100%;
+    padding: 0.5rem 0;
 }
